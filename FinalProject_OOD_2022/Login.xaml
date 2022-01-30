@@ -10,25 +10,30 @@
         <Border Background="White" CornerRadius="5" Margin="10">
             <StackPanel
             Margin="20">
-                <Label Content="Login" 
+                <Label Content="HMS - Henrysolutions" 
                Foreground="#0C325B" 
                FontSize="25"
                HorizontalAlignment="Center"/>
                 <Separator></Separator>
-                <Label Content="Username" Foreground="#0C325B"/>
+                <Label Content="Username" 
+                       Foreground="#0C325B"
+                       FontSize="18"/>
                 <TextBox x:Name="txtUsername" 
                            Background="white" 
                            Foreground="Black" 
                            FontSize="18"/>
 
-                <Label Content="Password" Foreground="#0C325B"/>
+                <Label Content="Password" 
+                       Foreground="#0C325B"
+                       FontSize="18"/>
                 <PasswordBox x:Name="txtPassword" 
                            Background="white" 
                            Foreground="Black" 
                            FontSize="18"/>
+                
                 <Button x:Name="btnSubmit"  Content="Login" Background="Gray" 
                            Foreground="Black" 
-                           Margin="60 10"
+                           Margin="70 10"
                            FontSize="18" Width="100"/>
             </StackPanel>
         </Border>
