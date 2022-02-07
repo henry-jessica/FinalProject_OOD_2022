@@ -15,25 +15,13 @@ using System.Windows.Shapes;
 namespace FinalProject_OOD_2022
 {
     /// <summary>
-    /// Interaction logic for Login.xaml
+    /// Interaction logic for Home.xaml
     /// </summary>
-    public partial class Login : Window
+    public partial class Home : Window
     {
-        public Login()
+        public Home()
         {
             InitializeComponent();
-        }
-
-        private void btnSubmit_Click(object sender, RoutedEventArgs e)
-        {
-
-           //Check login 
-           //Check username 
-           //Open new Screen 
-            Home main = new Home();
-            main.ShowDialog(); 
-            //Close Login Screen
-            //
         }
     }
 }
