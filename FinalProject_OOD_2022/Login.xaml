@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FinalProject_OOD_2022"
         mc:Ignorable="d"
-        Title="Login HMS" Height="431" Width="577" Background="#0C325B">
+        Title="Login HMS" Height="506" Width="1016" Background="#0C325B"
+        WindowStartupLocation="CenterScreen">
     <Grid>
         <Border Background="White" CornerRadius="5" Margin="10">
             <StackPanel

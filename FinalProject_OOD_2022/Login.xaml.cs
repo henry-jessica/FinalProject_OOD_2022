@@ -26,14 +26,17 @@ namespace FinalProject_OOD_2022
 
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
+       
 
-           //Check login 
-           //Check username 
-           //Open new Screen 
+            //Check login 
+            //Check username 
+            //Open new Screen 
             Home main = new Home();
-            main.ShowDialog(); 
+            main.Show(); //second window is modal 
+            this.Close();
             //Close Login Screen
-            //
+            //check if login true 
+
         }
     }
 }

@@ -23,5 +23,18 @@ namespace FinalProject_OOD_2022
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            //exit button
+            this.Close();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+
+       
+            
+        }
     }
 }
