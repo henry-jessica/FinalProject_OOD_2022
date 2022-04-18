@@ -7,8 +7,10 @@
         mc:Ignorable="d"
         Title="Home" Height="506" Width="1016"
         WindowStartupLocation="CenterOwner"
+      
          Background="{DynamicResource MaterialDesignPaper}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+      Loaded="Window_Loaded"
         >
     <Grid Margin="10">
         <Grid.RowDefinitions>
@@ -22,15 +24,24 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0"  Margin="20 20">
-                <Button Margin="0 10" Height="40" Click="Button_Click_1">Appointment</Button>
+                <Button Margin="0 10" Height="40">Appointment</Button>
+                
                 <Button Margin="0 10" Height="40">Patient</Button>
                 <Button Margin="0 10" Height="40">Billing</Button>
                 <Button Margin="0 10" Height="40">Full History of the Patient</Button>
-                <Button Margin="0 10" Height="40">View Appointment</Button>
-                <Button Margin="0 20" Height="20" Width="50" Background="#FFF78F8F" Click="Button_Click">Exit</Button>
+                <Button Margin="0 10" Height="40"  Click="Button_Click_1">View Appointment</Button>
+                <Button Margin="0 20" Height="29" Width="76" Background="#FFF78F8F"  Click="Button_Click">Exit</Button>
             </StackPanel>
             <StackPanel Grid.Column="1">
-                <Image  Source="images/pets.png" Height="410" Width="780"/>
+                <!--<Image  Source="images/pets.png" Height="410" Width="780"/>-->
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="80*"/>
+                    </Grid.RowDefinitions>
+                    <DataGrid Margin="10" Grid.Row="1" x:Name="Appointments"/>
+                </Grid>
+                
             </StackPanel>
         </Grid>
     </Grid>

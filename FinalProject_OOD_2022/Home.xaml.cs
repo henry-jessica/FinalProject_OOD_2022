@@ -19,9 +19,18 @@ namespace FinalProject_OOD_2022
     /// </summary>
     public partial class Home : Window
     {
+
+        PetData db = new PetData();
         public Home()
         {
             InitializeComponent();
+        }
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+ 
+
+
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -33,8 +42,21 @@ namespace FinalProject_OOD_2022
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
 
-       
-            
+            var query = from t in db.Pet
+                        where t.AppointmentTime != null
+                        select new
+                        {
+
+                            Name = t.PetName,
+                            Appoitment_Time = t.AppointmentTime,
+
+
+                        };
+
+
+            Appointments.ItemsSource = query.ToList();
         }
+
+       
     }
 }
