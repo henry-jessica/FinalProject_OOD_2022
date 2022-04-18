@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using FinalProject_OOD_2022;
 namespace DatabaseManagemant
 {
-
     internal class Program
     {
 
@@ -18,7 +17,6 @@ namespace DatabaseManagemant
             using (db)
             {
                 //create some pet and petOwner objects
-                //Create some team and player objects 
                 PetOwner o1 = new PetOwner() { OwnerID = 1, OwnerName = "Lucca Silva", Forms = "ownerForms1", OwnerDBO = new DateTime(1987, 5, 7)};
                 PetOwner o2 = new PetOwner() { OwnerID = 2, OwnerName = "Peater Parker", Forms = "ownerForms2", OwnerDBO = new DateTime(1956, 4, 6) };
                 PetOwner o3 = new PetOwner() { OwnerID = 3, OwnerName = "Kelly Kal", Forms = "ownerForms3", OwnerDBO = new DateTime(1994, 12, 12) };
@@ -52,8 +50,6 @@ namespace DatabaseManagemant
                 Console.WriteLine("Add Pet Owner to db");
 
                 //Add Pet to db 
-
-                //Add characters to db 
                 db.Pet.Add(p1);
                 db.Pet.Add(p2);
                 db.Pet.Add(p3);

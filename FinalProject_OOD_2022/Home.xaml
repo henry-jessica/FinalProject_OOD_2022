@@ -33,7 +33,7 @@
                 <Button Margin="0 20" Height="29" Width="76" Background="#FFF78F8F"  Click="Button_Click">Exit</Button>
             </StackPanel>
             <StackPanel Grid.Column="1">
-                <!--<Image  Source="images/pets.png" Height="410" Width="780"/>-->
+                <Image  Source="images/pets.png" Name="Folder" Height="410" Width="780"/>
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="20*"/>

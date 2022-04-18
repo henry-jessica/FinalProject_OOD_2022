@@ -41,19 +41,15 @@ namespace FinalProject_OOD_2022
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
+            Folder.Visibility = Visibility.Collapsed;
 
             var query = from t in db.Pet
                         where t.AppointmentTime != null
                         select new
                         {
-
                             Name = t.PetName,
                             Appoitment_Time = t.AppointmentTime,
-
-
                         };
-
-
             Appointments.ItemsSource = query.ToList();
         }
 
