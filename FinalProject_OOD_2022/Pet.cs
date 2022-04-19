@@ -9,6 +9,19 @@ using System.ComponentModel.DataAnnotations;
 namespace FinalProject_OOD_2022
 {
     //Enum of animal type 
+    public enum DoctorSpeciality
+    {
+        Surgery,
+        Nutrition,
+        Bones,
+        Anesthesia,
+        Dentistry,
+        Dermatology,
+        Emergency,
+        Ophthalmology,
+        Pathology,
+
+    }
     public enum PetType
     {
         Dog,
@@ -19,6 +32,7 @@ namespace FinalProject_OOD_2022
         Fish,
         Hamster,
     }
+
 
 
 
@@ -65,7 +79,7 @@ namespace FinalProject_OOD_2022
         public int DoctorID { get; set; }
         public string FirstName { get; set; }
         public string SecondName { get; set; }
-        public string Practice { get; set; }
+        public DoctorSpeciality DoctorSpeciality { get; set; }
         public DateTime DBO { get; set; }
         public List<Pet> Pets { get; set; }
         public string Address { get; set; }
