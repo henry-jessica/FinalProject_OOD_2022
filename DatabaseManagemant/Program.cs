@@ -9,88 +9,53 @@ namespace DatabaseManagemant
     internal class Program
     {
 
+
+
         static void Main(string[] args)
         {
+
             //instance of petData object
             PetData db = new PetData();
 
             using (db)
             {
-                //create some pet and petOwner objects
-                PetOwner o1 = new PetOwner() {
-                    OwnerID = 1,
-                    OwnerName = "Lucca Silva",
-                    OwnerDBO = new DateTime(1987, 5, 7),
-                    Address = "11 D Cork " 
-                };
+                string[] firstNames = {
+                "Adam", "Amelia", "Ava", "Chloe", "Conor", "Daniel", "Emily",
+                "Emma", "Grace", "Hannan", "Harry", "Jack", "James", "Lucy", "Luke", "Mia",
+                "Michael", "Noah", "Sean", "Sophi", "George", "Eugene", "Bruno", "Ronaldo", "Ronaldinho", "Kaka",
+                "Robson", "Antony", "Paddy", "Caroline" };
 
-                PetOwner o2 = new PetOwner() 
-                { OwnerID = 2, 
-                    OwnerName = "Peater Parker", 
-                    Forms = "ownerForms2", 
-                    OwnerDBO = new DateTime(1956, 4, 6) 
-                };
-                PetOwner o3 = new PetOwner() 
+                string[] secondNames =
                 {
-                    OwnerID = 3, 
-                    OwnerName = "Kelly Kal", 
-                    Forms = "ownerForms3", 
-                    OwnerDBO = new DateTime(1994, 12, 12) 
-                };
-                Pet p1 = new Pet() { 
-                    PetID = 1, PetName = "Rockey", 
-                    PetDBO = new DateTime(2019, 4, 3), 
-                    PetType = PetType.Dog, 
-                    PetOwnerName = o1.OwnerName, 
-                    PetOwner = o1, 
-                    OwnerID = 1, 
-                    AppointmentTime="12:00", 
-                    AppointmentDoctor="Juliana Mendes" 
-                };
-                Pet p2 = new Pet() { 
-                    PetID = 2, 
-                    PetName = "Sophi", 
-                    PetDBO = new DateTime(2019, 4, 3), 
-                    PetType = PetType.Cat, 
-                    PetOwner = o2, 
-                    PetOwnerName = o2.OwnerName, 
-                    OwnerID = o2.OwnerID, 
-                    AppointmentTime="13:00", 
-                    AppointmentDoctor="Colm Davey"
-                };
-                Pet p3 = new Pet() {
-                    PetID = 3, 
-                    PetName = "Pussy", 
-                    PetDBO = new DateTime(2019, 4, 3), 
-                    PetType = PetType.Dog, 
-                    PetOwner = o3, 
-                    PetOwnerName = o3.OwnerName, 
-                    OwnerID = o3.OwnerID };
-                Pet p4 = new Pet() { 
-                OwnerID = 1,
-                PetName = "Joe", 
-                PetDBO = new DateTime(2020,09,20), 
-                };
-                PetOwner o4 = new PetOwner()
+                "Brenaan", "Byrne", "Daly", "Doyle", "Dune", "Fizgerald", "Kavanagh", "Kely",
+                "Lynch", "Henry", "McCArthy", "Davey", "Murphy", "O'Brian", "O'Connor", "O'Naill",
+                "O'Reilly", "O'Sullivan", "Ryan", "Walsh", "Oregan", "Rubbys", "Willians", "Potry", "Davidson",
+                "Winters", "Moon", "Fox", "Martins", "Silva" };
+
+                Random rnd = new Random();
+
+                //Create 30 Owners
+                for (int i = 0; i < 30; i++)
                 {
-                    OwnerID = 1,
-                    OwnerName = "Jessica",
-                    Pets = new List<Pet>() { p1, p2, p3 }
+                    //generate random data of birthday age is 20-60
 
-                };
+                    DateTime date1 = DateTime.Now.AddYears(-60);
+                    DateTime date2 = DateTime.Now.AddYears(-20);
+                    TimeSpan t = date2 - date1;
+                    int numberOfDays = t.Days;
+                    DateTime newDate = date1.AddDays(rnd.Next(numberOfDays));
 
 
-                //Add PetOwner db 
-                db.PetOwner.Add(o1);
-                db.PetOwner.Add(o2);
-                db.PetOwner.Add(o3);
+                    PetOwner po = new PetOwner()
+                    {
+                        OwnerID = i,
+                        OwnerFirstName = firstNames[rnd.Next(30)],
+                        OwnerLastName = secondNames[rnd.Next(30)],
+                        OwnerDBO = newDate
+                    };
+                    db.PetOwner.Add(po);
+                }
 
-                Console.WriteLine("Add Pet Owner to db");
-
-                //Add Pet to db 
-                db.Pet.Add(p1);
-                db.Pet.Add(p2);
-                db.Pet.Add(p3);
 
                 Console.WriteLine("Add Pet to db");
 

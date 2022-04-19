@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace FinalProject_OOD_2022
 {
-    //Enum of animal type 
+    //Enums 
     public enum DoctorSpeciality
     {
         Surgery,
@@ -32,25 +32,23 @@ namespace FinalProject_OOD_2022
         Fish,
         Hamster,
     }
-
     public enum GenderType
     {
-        Male, 
+        Male,
         Female,
         Other
     }
-
-    public enum OwnerStatus {
-            Active ,
-            Inactive,
+    public enum OwnerStatus
+    {
+        Active,
+        Inactive,
         Blocked
     }
-    public enum PetStatus {
-    Alive, 
-    Dead 
+    public enum PetStatus
+    {
+        Alive,
+        Dead
     }
-
-
 
     public class Pet
     {
@@ -69,33 +67,34 @@ namespace FinalProject_OOD_2022
         public string AppointmentTime { get; set; }
         public string AppointmentDoctor { get; set; }
 
-
         #endregion
 
     }
-    //create owner properties - change this to external class later Jessica 
+    //create owner properties - change this to external class later 
     public class PetOwner
     {
         [Key]
         public int OwnerID { get; set; }
-        public string OwnerName { get; set; }
+        public string OwnerFirstName { get; set; }
+        public string OwnerLastName{ get; set; }
         public DateTime OwnerDBO { get; set; }
         public List<Pet> Pets { get; set; }
-        public string Address { get; set; }
-
-
+        //public Address Address { get; set; }
     }
 
+    //Create Address Properties
+    //public class Address
+    //{
+    //    [Key]
+    //    string AddressID { get; set; }
+    //    string Street { get; set; }
+    //    string Town { get; set; }
+    //    string County { get; set; }
+    //    string Country { get; set; }
+    //    string ZipCode { get; set; }
+    //}
 
-    public class Address { 
-    string AddressID { get; set; }
-        string Street { get; set; }
-        string Town { get; set; }
-        string County { get; set; }
-        string Country { get; set; }
-        string ZipCode { get; set;  }
-    }
-
+    //Create Doctor Properties
     public class Doctor
     {
         [Key]
@@ -106,14 +105,17 @@ namespace FinalProject_OOD_2022
         public DateTime DBO { get; set; }
         public List<Pet> Pets { get; set; }
         public string Address { get; set; }
-
+        //public Address DocAddress { get; set; }
     }
 
+    //Create Tables
     public class PetData : DbContext
     {
-        public PetData() : base("PetDatabase5") { }
+        public PetData() : base("PetDatabase6") { }
         public DbSet<PetOwner> PetOwner { set; get; }
         public DbSet<Pet> Pet { set; get; }
         public DbSet<Doctor> Doctor { set; get; }
+        //public DbSet<Address> Address { set; get; }
+
     }
 }
