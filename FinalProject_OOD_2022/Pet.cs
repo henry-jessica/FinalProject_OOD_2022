@@ -34,6 +34,18 @@ namespace FinalProject_OOD_2022
         Male,
         Female
     }
+    public enum ServiceStatus
+    {
+        Pendent,
+        Paid
+    }
+    public enum AppointmentStatus
+    {
+        Completed,
+        Pendent,
+        Cancelled
+    }
+
     public enum OwnerStatus
     {
         Active,
@@ -68,46 +80,62 @@ namespace FinalProject_OOD_2022
         [Key]
         public int OwnerID { get; set; }
         public string OwnerFirstName { get; set; }
-        public string OwnerLastName{ get; set; }
+        public string OwnerLastName { get; set; }
         public DateTime OwnerDBO { get; set; }
         public List<Pet> Pets { get; set; }
-        //public Address Address { get; set; }
+        public Address Address { get; set; }
+        public string Phone { get; set; }
+        public Service Service { get; set; }
     }
 
+    public class Service
+    {
+        int serviceId { get; set; }
+        double price { get; set; }
+        string Description { get; set; }
+        DateTime DatePayment { get; set; }
+        ServiceStatus Status { get; set; }
+
+
+    }
     //Create Address Properties
-    //public class Address
-    //{
-    //    [Key]
-    //    string AddressID { get; set; }
-    //    string Street { get; set; }
-    //    string Town { get; set; }
-    //    string County { get; set; }
-    //    string Country { get; set; }
-    //    string ZipCode { get; set; }
-    //}
+    public class Address
+    {
+        [Key]
+        string AddressID { get; set; }
+        string Street { get; set; }
+        string Town { get; set; }
+        string County { get; set; }
+        string Country { get; set; }
+        string ZipCode { get; set; }
+
+    }
 
     //Create Doctor Properties
-    //public class Doctor
-    //{
-    //    [Key]
-    //    public int DoctorID { get; set; }
-    //    public string FirstName { get; set; }
-    //    public string SecondName { get; set; }
-    //    public DoctorSpeciality DoctorSpeciality { get; set; }
-    //    public DateTime DBO { get; set; }
-    //    public List<Pet> Pets { get; set; }
-    //    public string Address { get; set; }
-    //    //public Address DocAddress { get; set; }
-    //}
+    public class Doctor
+    {
+        [Key]
+        public int DoctorID { get; set; }
+        public string FirstName { get; set; }
+        public string SecondName { get; set; }
+        public DoctorSpeciality DoctorSpeciality { get; set; }
+        public DateTime DBO { get; set; }
+        public List<Appointment> Appointments { get; set; }
+        public string Address { get; set; }
+        public Address DocAddress { get; set; }
+    }
     //Create Appintment Table 
-    //public class Appointment
-    //{
-    //    [Key]
-    //    public int ID { get; set; }
-    //    public Pet PetID { get; set; }
-    //  //  public Doctor DoctorID { get; set; }
-    //    public DateTime Date { get; set; }
-    //}
+    public class Appointment
+    {
+        [Key]
+        public int ID { get; set; }
+        public Pet PetID { get; set; }
+        public Doctor DoctorID { get; set; }
+        public DateTime Date { get; set; }
+        public DateTime Time { get; set; }
+
+        public AppointmentStatus Status { get; set; }
+    }
 
     //Create Tables
     public class PetData : DbContext
@@ -115,7 +143,7 @@ namespace FinalProject_OOD_2022
         public PetData() : base("PetDatabase9") { }
         public DbSet<PetOwner> PetOwner { set; get; }
         public DbSet<Pet> Pet { set; get; }
-       // public DbSet<Doctor> Doctor { set; get; }
+        // public DbSet<Doctor> Doctor { set; get; }
         //public DbSet<Address> Address { set; get; }
 
     }

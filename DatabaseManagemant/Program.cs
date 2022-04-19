@@ -46,7 +46,7 @@ namespace DatabaseManagemant
             }
 
 
-            Console.WriteLine("Add Pet to db");
+                Console.WriteLine("Add Pet to db");
                 //Save new objects 
                 db.SaveChanges();
                 Console.WriteLine("Save the objects to the database");
@@ -188,6 +188,7 @@ namespace DatabaseManagemant
                 };
 
                 Console.WriteLine(pet.PetID + " " + pet.PetName + "  " + pet.PetDBO + " " + pet.PetType + " " + pet.GenderType + " " + pet.OwnerID + " " + pet.PetImage);
+               
                 pets.Add(pet);
             }
             return pets; 
