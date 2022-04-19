@@ -22,8 +22,8 @@ namespace DatabaseManagemant
                 PetOwner o3 = new PetOwner() { OwnerID = 3, OwnerName = "Kelly Kal", Forms = "ownerForms3", OwnerDBO = new DateTime(1994, 12, 12) };
 
                 Pet p1 = new Pet() { PetID = 1, PetName = "Rockey", PetDBO = new DateTime(2019, 4, 3), PetType = PetType.Dog, PetOwnerName = o1.OwnerName, PetOwner = o1, OwnerID = 1, AppointmentTime="12:00", AppointmentDoctor="Juliana Mendes" };
-                Pet p2 = new Pet() { PetID = 1, PetName = "Sophi", PetDBO = new DateTime(2019, 4, 3), PetType = PetType.Dog, PetOwner = o2, PetOwnerName = o2.OwnerName, OwnerID = o2.OwnerID, AppointmentTime="13:00", AppointmentDoctor="Colm Davey"};
-                Pet p3 = new Pet() { PetID = 1, PetName = "Pussy", PetDBO = new DateTime(2019, 4, 3), PetType = PetType.Dog, PetOwner = o3, PetOwnerName = o3.OwnerName, OwnerID = o3.OwnerID };
+                Pet p2 = new Pet() { PetID = 2, PetName = "Sophi", PetDBO = new DateTime(2019, 4, 3), PetType = PetType.Cat, PetOwner = o2, PetOwnerName = o2.OwnerName, OwnerID = o2.OwnerID, AppointmentTime="13:00", AppointmentDoctor="Colm Davey"};
+                Pet p3 = new Pet() { PetID = 3, PetName = "Pussy", PetDBO = new DateTime(2019, 4, 3), PetType = PetType.Dog, PetOwner = o3, PetOwnerName = o3.OwnerName, OwnerID = o3.OwnerID };
 
 
                 Pet p4 = new Pet() { 

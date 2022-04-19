@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +20,7 @@ namespace FinalProject_OOD_2022
     /// </summary>
     public partial class Home : Window
     {
+        public ObservableCollection<string> PetsList = new ObservableCollection<string>();
 
         PetData db = new PetData();
         public Home()
@@ -27,7 +29,7 @@ namespace FinalProject_OOD_2022
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
- 
+
 
 
 
@@ -41,7 +43,7 @@ namespace FinalProject_OOD_2022
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            Folder.Visibility = Visibility.Collapsed;
+            //Folder.Visibility = Visibility.Collapsed;
 
             var query = from t in db.Pet
                         where t.AppointmentTime != null
@@ -50,9 +52,42 @@ namespace FinalProject_OOD_2022
                             Name = t.PetName,
                             Appoitment_Time = t.AppointmentTime,
                         };
-            Appointments.ItemsSource = query.ToList();
+            DgAppointments.ItemsSource = query.ToList();
         }
 
-       
+        private void Appointment_Btn(object sender, RoutedEventArgs e)
+        {
+
+            var query = from p in db.Pet
+                        select p.PetName;
+
+            cbxPets.ItemsSource = query.ToList();
+
+
+            //create new appointment 
+            //Folder.Visibility = Visibility.Collapsed;
+            //DgCreateAppointments.ItemsSource = db.Pet.Where(p => p.AppointmentTime != null).ToList();
+        }
+
+        private void blxChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string petSelected = cbxPets.SelectedItem as string;
+
+            if (petSelected != null)
+            {
+                var query = from d in db.Pet
+                            where d.PetName == petSelected
+                            select d.AppointmentTime;
+                var petType = query.ToList();
+                tbxPetDetails.Text = String.Format("Preis: {0}", petType[0]);
+
+               
+
+            }
+
+
+
+
+        }
     }
 }

@@ -20,6 +20,8 @@ namespace FinalProject_OOD_2022
         Hamster,
     }
 
+
+
     public class Pet
     {
 
@@ -34,6 +36,7 @@ namespace FinalProject_OOD_2022
         public virtual PetOwner PetOwner { get; set; }
         public string PetOwnerName { get; set; }
         public int OwnerID { get; set; }
+
 
         public string AppointmentTime { get; set; }
         public string AppointmentDoctor { get; set; }
@@ -51,12 +54,27 @@ namespace FinalProject_OOD_2022
         public string Forms { get; set; }
         public DateTime OwnerDBO { get; set; }
         public List<Pet> Pets { get; set; }
+        public string Address { get; set; }
+
+
+    }
+
+    public class Doctor
+    {
+        [Key]
+        public int DoctorID { get; set; }
+        public string FirstName { get; set; }
+        public string SecondName { get; set; }
+        public string Practice { get; set; }
+        public DateTime DBO { get; set; }
+        public List<Pet> Pets { get; set; }
+        public string Address { get; set; }
 
     }
 
     public class PetData : DbContext
     {
-        public PetData() : base("PetDatabase4") { }
+        public PetData() : base("PetDatabase5") { }
         public DbSet<PetOwner> PetOwner { set; get; }
         public DbSet<Pet> Pet { set; get; }
     }
