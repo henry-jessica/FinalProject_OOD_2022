@@ -26,8 +26,8 @@ namespace FinalProject_OOD_2022
     {
         Dog,
         Cat,
-        Fish,
-        Hamster,
+        //Fish,
+        //Hamster,
     }
     public enum GenderType
     {
@@ -58,13 +58,9 @@ namespace FinalProject_OOD_2022
         public DateTime PetDBO { get; set; }
         public PetType PetType { get; set; }
         public virtual PetOwner PetOwner { get; set; }
-        public string PetOwnerName { get; set; }
         public int OwnerID { get; set; }
-        public string AppointmentTime { get; set; }
-
-       public GenderType GenderType { get; set; }
+        public GenderType GenderType { get; set; }
         #endregion
-
     }
     //create owner properties - change this to external class later 
     public class PetOwner
@@ -91,26 +87,35 @@ namespace FinalProject_OOD_2022
     //}
 
     //Create Doctor Properties
-    public class Doctor
-    {
-        [Key]
-        public int DoctorID { get; set; }
-        public string FirstName { get; set; }
-        public string SecondName { get; set; }
-        public DoctorSpeciality DoctorSpeciality { get; set; }
-        public DateTime DBO { get; set; }
-        public List<Pet> Pets { get; set; }
-        public string Address { get; set; }
-        //public Address DocAddress { get; set; }
-    }
+    //public class Doctor
+    //{
+    //    [Key]
+    //    public int DoctorID { get; set; }
+    //    public string FirstName { get; set; }
+    //    public string SecondName { get; set; }
+    //    public DoctorSpeciality DoctorSpeciality { get; set; }
+    //    public DateTime DBO { get; set; }
+    //    public List<Pet> Pets { get; set; }
+    //    public string Address { get; set; }
+    //    //public Address DocAddress { get; set; }
+    //}
+    //Create Appintment Table 
+    //public class Appointment
+    //{
+    //    [Key]
+    //    public int ID { get; set; }
+    //    public Pet PetID { get; set; }
+    //  //  public Doctor DoctorID { get; set; }
+    //    public DateTime Date { get; set; }
+    //}
 
     //Create Tables
     public class PetData : DbContext
     {
-        public PetData() : base("PetDatabase6") { }
+        public PetData() : base("PetDatabase9") { }
         public DbSet<PetOwner> PetOwner { set; get; }
         public DbSet<Pet> Pet { set; get; }
-        public DbSet<Doctor> Doctor { set; get; }
+       // public DbSet<Doctor> Doctor { set; get; }
         //public DbSet<Address> Address { set; get; }
 
     }

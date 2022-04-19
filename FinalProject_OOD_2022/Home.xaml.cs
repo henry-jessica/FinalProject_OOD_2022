@@ -45,14 +45,14 @@ namespace FinalProject_OOD_2022
         {
             //Folder.Visibility = Visibility.Collapsed;
 
-            var query = from t in db.Pet
-                        where t.AppointmentTime != null
-                        select new
-                        {
-                            Name = t.PetName,
-                            Appoitment_Time = t.AppointmentTime,
-                        };
-            DgAppointments.ItemsSource = query.ToList();
+            //var query = from t in db.Pet
+            //            where t != null
+            //            select new
+            //            {
+            //                Name = t.PetName,
+            //                Appoitment_Time = t.AppointmentTime,
+            //            };
+            //DgAppointments.ItemsSource = query.ToList();
         }
 
         private void Appointment_Btn(object sender, RoutedEventArgs e)
@@ -73,17 +73,17 @@ namespace FinalProject_OOD_2022
         {
             string petSelected = cbxPets.SelectedItem as string;
 
-            if (petSelected != null)
-            {
-                var query = from d in db.Pet
-                            where d.PetName == petSelected
-                            select d.AppointmentTime;
-                var petType = query.ToList();
-                tbxPetDetails.Text = String.Format("Preis: {0}", petType[0]);
+            //if (petSelected != null)
+            //{
+            //    var query = from d in db.Pet
+            //                where d.PetName == petSelected
+            //                select d.AppointmentTime;
+            //    var petType = query.ToList();
+            //    tbxPetDetails.Text = String.Format("Preis: {0}", petType[0]);
 
                
 
-            }
+            //}
 
 
 
