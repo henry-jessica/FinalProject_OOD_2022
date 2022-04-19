@@ -33,6 +33,22 @@ namespace FinalProject_OOD_2022
         Hamster,
     }
 
+    public enum GenderType
+    {
+        Male, 
+        Female,
+        Other
+    }
+
+    public enum OwnerStatus {
+            Active ,
+            Inactive,
+        Blocked
+    }
+    public enum PetStatus {
+    Alive, 
+    Dead 
+    }
 
 
 
@@ -50,8 +66,6 @@ namespace FinalProject_OOD_2022
         public virtual PetOwner PetOwner { get; set; }
         public string PetOwnerName { get; set; }
         public int OwnerID { get; set; }
-
-
         public string AppointmentTime { get; set; }
         public string AppointmentDoctor { get; set; }
 
@@ -65,12 +79,21 @@ namespace FinalProject_OOD_2022
         [Key]
         public int OwnerID { get; set; }
         public string OwnerName { get; set; }
-        public string Forms { get; set; }
         public DateTime OwnerDBO { get; set; }
         public List<Pet> Pets { get; set; }
         public string Address { get; set; }
 
 
+    }
+
+
+    public class Address { 
+    string AddressID { get; set; }
+        string Street { get; set; }
+        string Town { get; set; }
+        string County { get; set; }
+        string Country { get; set; }
+        string ZipCode { get; set;  }
     }
 
     public class Doctor
@@ -91,5 +114,6 @@ namespace FinalProject_OOD_2022
         public PetData() : base("PetDatabase5") { }
         public DbSet<PetOwner> PetOwner { set; get; }
         public DbSet<Pet> Pet { set; get; }
+        public DbSet<Doctor> Doctor { set; get; }
     }
 }
