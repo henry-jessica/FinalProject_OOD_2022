@@ -45,7 +45,6 @@ namespace FinalProject_OOD_2022
         Pendent,
         Cancelled
     }
-
     public enum OwnerStatus
     {
         Active,
@@ -57,7 +56,6 @@ namespace FinalProject_OOD_2022
         Alive,
         Dead
     }
-
     public class Pet
     {
 
@@ -74,7 +72,7 @@ namespace FinalProject_OOD_2022
         public GenderType GenderType { get; set; }
         #endregion
     }
-    //create owner properties - change this to external class later 
+
     public class PetOwner
     {
         [Key]
@@ -90,15 +88,17 @@ namespace FinalProject_OOD_2022
 
     public class Service
     {
+        [Key]
         int serviceId { get; set; }
         double price { get; set; }
         string Description { get; set; }
         DateTime DatePayment { get; set; }
         ServiceStatus Status { get; set; }
-
-
+        Doctor DoctorID { get; set; }
+        PetOwner OwnerID { get; set; }
+        Pet PetID { get; set; }
     }
-    //Create Address Properties
+
     public class Address
     {
         [Key]
