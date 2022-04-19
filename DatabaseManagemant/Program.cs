@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using FinalProject_OOD_2022;
+using Newtonsoft.Json;
+using RestSharp;
+
 namespace DatabaseManagemant
 {
     internal class Program
@@ -11,7 +15,7 @@ namespace DatabaseManagemant
 
 
 
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
 
             //instance of petData object
@@ -24,7 +28,6 @@ namespace DatabaseManagemant
                 "Emma", "Grace", "Hannan", "Harry", "Jack", "James", "Lucy", "Luke", "Mia",
                 "Michael", "Noah", "Sean", "Sophi", "George", "Eugene", "Bruno", "Ronaldo", "Ronaldinho", "Kaka",
                 "Robson", "Antony", "Paddy", "Caroline" };
-
                 string[] secondNames =
                 {
                 "Brenaan", "Byrne", "Daly", "Doyle", "Dune", "Fizgerald", "Kavanagh", "Kely",
@@ -54,7 +57,80 @@ namespace DatabaseManagemant
                         OwnerDBO = newDate
                     };
                     db.PetOwner.Add(po);
-                }
+
+
+
+                    //Create Pet Names - male and famale 
+                    string[] petNameFemale = {
+                        "Luna", "Bella", "Lily", "Lucy","Nala","Kitty", "Chloe", "Stella", "Zoe", "Lola","Bella",
+                        "Lucy", "Daisy", "Lola", "Sadie", "Molly", "Bailey", "Stella", "Maggie", "Cici"};
+                    string[] petNameMale = {
+                        "Oliver", "Leo", "Milo", "Charlie", "Max", "Simba", "Jack", "Loki", "Ollie", "Jasper", "Max", "Charlie", "Milo",
+                        "Buddy", "Rocky", "Bear", "Leo", "Duke", "Teddy", "Tucker"
+                    };
+
+
+
+                    for (int j = 0; j < 40; j++)
+                    {
+                        //generate random data of birthday age is 20-1
+                        DateTime date = DateTime.Now.AddYears(-20);
+                        DateTime date3 = DateTime.Now.AddYears(-1);
+                        TimeSpan x = date3 - date;
+                        int numberOfDays1 = x.Days;
+                        DateTime newDate1 = date.AddDays(rnd.Next(numberOfDays1));
+
+                        //generate random type of pet 
+                        var v = Enum.GetValues(typeof(PetType));
+                        PetType p_type = (PetType)v.GetValue(rnd.Next(v.Length)); 
+                       
+                        //get random gender of pet 
+                        var gender = Enum.GetValues(typeof(GenderType));
+                        GenderType genderType = (GenderType)gender.GetValue(rnd.Next(gender.Length));
+
+                        //select random male name or female name for pets 
+                        string randomname = ""; 
+                        if (genderType == GenderType.Male)
+                            randomname = petNameMale[rnd.Next(20)]; 
+                        else if(genderType == GenderType.Female)
+                            randomname = petNameMale[rnd.Next(20)];
+
+                        if (p_type == PetType.Dog)
+                        {
+                            var client = new HttpClient();
+                            var request = new HttpRequestMessage
+                            {
+                                Method = HttpMethod.Get,
+                                RequestUri = new Uri("https://dog.ceo/api/breeds/image/random"),
+
+                            };
+                            using (var response = await client.SendAsync(request))
+                            {
+                                response.EnsureSuccessStatusCode();
+                                var body = await response.Content.ReadAsStringAsync();
+
+                                var data = JsonConvert.DeserializeObject(body); 
+
+                                Console.WriteLine(body);
+                            Console.WriteLine(data); 
+                            }
+                        }
+
+                        Pet pet = new Pet()
+                        {
+                            PetID = j,
+                            PetName = randomname,
+                            PetDBO = newDate1, 
+                            PetType = p_type, 
+                            GenderType = genderType,
+                            OwnerID = rnd.Next(30),
+                        };
+                      //  db.Pet.Add(pet);
+                    
+                    }
+                
+      
+    }
 
 
                 Console.WriteLine("Add Pet to db");
@@ -68,5 +144,5 @@ namespace DatabaseManagemant
 
         }
     }
-}
+
 

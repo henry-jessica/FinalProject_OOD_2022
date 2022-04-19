@@ -20,7 +20,8 @@ namespace FinalProject_OOD_2022
     /// </summary>
     public partial class Home : Window
     {
-        public ObservableCollection<string> PetsList = new ObservableCollection<string>();
+        public ObservableCollection<string> pets = new ObservableCollection<string>();
+        public List<PetOwner> owners = new List<PetOwner>();
 
         PetData db = new PetData();
         public Home()

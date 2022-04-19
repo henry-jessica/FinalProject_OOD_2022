@@ -26,17 +26,13 @@ namespace FinalProject_OOD_2022
     {
         Dog,
         Cat,
-        Spider,
-        Snake,
-        Turtle,
         Fish,
         Hamster,
     }
     public enum GenderType
     {
         Male,
-        Female,
-        Other
+        Female
     }
     public enum OwnerStatus
     {
@@ -65,8 +61,8 @@ namespace FinalProject_OOD_2022
         public string PetOwnerName { get; set; }
         public int OwnerID { get; set; }
         public string AppointmentTime { get; set; }
-        public string AppointmentDoctor { get; set; }
 
+       public GenderType GenderType { get; set; }
         #endregion
 
     }
