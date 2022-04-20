@@ -17,9 +17,12 @@ namespace DatabaseManagemant
         public static List<PetOwner> allOwners = new List<PetOwner>();
         static Random rnd = new Random();
 
+
         static async Task Main(string[] args)
         {
-            PetData db = new PetData();
+
+             PetData db = new PetData();
+
 
             using (db)
             {
@@ -44,17 +47,27 @@ namespace DatabaseManagemant
                     db.Vet.Add(item);
                 }
 
+                List<Appointment> appointments = CreateAllAppointment(pets); 
+                foreach (var item in appointments)
+                {
+                   db.Appointment.Add(item);
+                }
 
+                List<Service> services = CreateAllServices();
+                foreach (var item in services)
+                {
+                    db.Service.Add(item);
+                }
                 Console.WriteLine("Database Created");
                 //  db.Pet.Add(pet);
 
 
             }
-                Console.WriteLine("Add Pet to db");
-                //Save new objects 
-                db.SaveChanges();
-                Console.WriteLine("Save the objects to the database");
-                Console.ReadLine();
+            Console.WriteLine("Add Pet to db");
+            //Save new objects 
+          //  db.SaveChanges();
+            Console.WriteLine("Save the objects to the database");
+            Console.ReadLine();
         }
 
         public static List<Vet> CreateAllVets()
@@ -67,7 +80,6 @@ namespace DatabaseManagemant
                 SecondName = "Azanelly",
                 VetSpeciality = VetSpeciality.Pathology,
                 DBO = GenerateRandomDBO(25, 50),
-                Address = "Sligo Town"
             };
             Vet v2 = new Vet
             {
@@ -76,38 +88,35 @@ namespace DatabaseManagemant
                 SecondName = "Henry",
                 VetSpeciality = VetSpeciality.Nutrition,
                 DBO = GenerateRandomDBO(25, 50),
-                Address = "Sligo Town"
             };
             Vet v3 = new Vet
             {
-                VetID = 1,
+                VetID = 3,
                 FirstName = "Jack",
                 SecondName = "Zuck",
                 VetSpeciality = VetSpeciality.Emergency,
                 DBO = GenerateRandomDBO(25, 50),
-                Address = "Av.11 - Ballinode Sligo"
             };
             Vet v4 = new Vet
             {
-                VetID = 1,
+                VetID = 4,
                 FirstName = "Andrea",
                 SecondName = "McGuinness",
                 VetSpeciality = VetSpeciality.Ophthalmology,
                 DBO = GenerateRandomDBO(25, 50),
-                Address = "Av.11 - Ballinode Sligo"
             };
 
-            vets.Add(v1); 
+            vets.Add(v1);
             vets.Add(v2);
-            vets.Add(v3); 
+            vets.Add(v3);
             vets.Add(v4);
 
-            return vets; 
+            return vets;
         }
         public static List<PetOwner> CreateAllOwners()
         {
 
-         
+
             List<PetOwner> owners = new List<PetOwner>();
 
             string[] firstNames = {
@@ -144,10 +153,10 @@ namespace DatabaseManagemant
 
             return owners;
         }
-        public static async Task <List<Pet>> CreateAllPetsAsync()
+        public static async Task<List<Pet>> CreateAllPetsAsync()
         {
             List<Pet> pets = new List<Pet>();
-          
+
             //Create Pet Names - male and famale 
             string[] petNameFemale = {
                         "Luna", "Bella", "Lily", "Lucy","Nala","Kitty", "Chloe", "Stella", "Zoe", "Lola","Bella",
@@ -239,11 +248,74 @@ namespace DatabaseManagemant
                 };
 
                 Console.WriteLine(pet.PetID + " " + pet.PetName + "  " + pet.PetDBO + " " + pet.PetType + " " + pet.GenderType + " " + pet.OwnerID + " " + pet.PetImage);
-               
+
                 pets.Add(pet);
             }
-            return pets; 
+            return pets;
         }
+        public static List<Appointment> CreateAllAppointment(List<Pet> pets)
+        {
+            List<Appointment> appointments = new List<Appointment>();
+          
+            for (int i = 0; i < 30; i++)
+            {
+                DateTime dateDays;
+                AppointmentStatus status;
+                AppointmentType appointment_pathWay;
+                TimeSpan t; 
+                CreateRandomDataAppointment(out dateDays, out status, out appointment_pathWay, out t);
+
+                Appointment app1 = new Appointment
+                {
+                    ID = i,
+                    PetID = rnd.Next(pets.Count),
+                    VetID = rnd.Next(4),
+                    Time = t,
+                    Date = dateDays,
+                    Status = status,
+                    Appointment_PathWay = appointment_pathWay,
+                };
+
+                Console.WriteLine(app1);
+
+                appointments.Add(app1);
+            }
+
+            return appointments;
+
+        }
+        
+        public static List<Service> CreateAllServices()
+        {
+            List<Service> services = new List<Service>();
+
+            return services;
+        }
+
+
+        private static void CreateRandomDataAppointment(out DateTime dateDays, out AppointmentStatus status, out AppointmentType appointment_pathWay, out TimeSpan t)
+        {
+            //create random days
+            DateTime today = DateTime.Now;
+            dateDays = today.AddDays(rnd.Next(1, 60));
+
+            //get type from random appointments - working ours from 7 to 18:00
+            TimeSpan start = TimeSpan.FromHours(7);
+            TimeSpan end = TimeSpan.FromHours(18);
+            int maxMinutes = (int)((end - start).TotalMinutes);
+            int minutes = rnd.Next(maxMinutes);
+              t = start.Add(TimeSpan.FromMinutes(minutes));
+
+            //get random Status
+            var AppintmentStatus = Enum.GetValues(typeof(GenderType));
+            status = (AppointmentStatus)AppintmentStatus.GetValue(rnd.Next(AppintmentStatus.Length));
+
+            //Appointment Type 
+            var Appointment_PathWay = Enum.GetValues(typeof(GenderType));
+            appointment_pathWay = (AppointmentType)Appointment_PathWay.GetValue(rnd.Next(Appointment_PathWay.Length));
+        }
+
+
         public static DateTime GenerateRandomDBO(int ageMin, int AgeMax)
         {
             DateTime date1 = DateTime.Now.AddYears(-AgeMax);
@@ -253,27 +325,39 @@ namespace DatabaseManagemant
             DateTime newDate = date1.AddDays(rnd.Next(numberOfDays));
             return newDate;
         }
-
+        //public static List<Address> CreateAllAddresses()
+        //{
+        //    List<Address> addresses = new List<Address>();
+        //    Address a1 = new Address()
+        //    {
+        //        ZipCode = "AZX",
+        //        Street = "O'Connel",
+        //        Town = "Sligo",
+        //        County = "Sligo",
+        //        Country = "IE",
+        //        Vet = 2,
+        //    }; 
+        //   return addresses;
     }
+}
 
 
-    public class Rootobject
-    {
-        public string message { get; set; }
-        public string status { get; set; }
-    }
-    //public class Rootobject2
-    //{
-    //    public Class1[] Property1 { get; set; }
-    //}
-    public class Class1
-    {
-        public object[] breeds { get; set; }
-        public string id { get; set; }
-        public string url { get; set; }
-        public int width { get; set; }
-        public int height { get; set; }
-    }
+public class Rootobject
+{
+    public string message { get; set; }
+    public string status { get; set; }
+}
+//public class Rootobject2
+//{
+//    public Class1[] Property1 { get; set; }
+//}
+public class Class1
+{
+    public object[] breeds { get; set; }
+    public string id { get; set; }
+    public string url { get; set; }
+    public int width { get; set; }
+    public int height { get; set; }
 }
 
 
