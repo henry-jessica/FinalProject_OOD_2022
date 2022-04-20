@@ -140,11 +140,10 @@ namespace FinalProject_OOD_2022
     //Create Tables 
     public class PetData : DbContext
     {
-        public PetData() : base("PetDatabase200422") { }
+        public PetData() : base("PetDataFinalTest") { }
         public DbSet<PetOwner> PetOwner { set; get; }
         public DbSet<Pet> Pet { set; get; }
         public DbSet<Vet> Vet { set; get; }
-
         public DbSet<Bill> Bill { set; get; }
         public DbSet<Appointment> Appointment { set; get; }
 

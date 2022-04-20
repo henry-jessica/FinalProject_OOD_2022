@@ -16,16 +16,14 @@ namespace DatabaseManagemant
 
         public static List<PetOwner> allOwners = new List<PetOwner>();
         static Random rnd = new Random();
-
-
         static async Task Main(string[] args)
         {
 
             PetData db = new PetData();
-
-
             using (db)
             {
+
+
                 //Add all owner from the list to db Pet Owner table
                 List<PetOwner> owners = CreateAllOwners();
 
@@ -33,6 +31,8 @@ namespace DatabaseManagemant
                 {
                     db.PetOwner.Add(item);
                 }
+                //Save new objects 
+                db.SaveChanges();
 
                 ////Add all pet 
                 List<Pet> pets = await CreateAllPetsAsync();
@@ -40,18 +40,24 @@ namespace DatabaseManagemant
                 {
                     db.Pet.Add(item);
                 }
+                //Save new objects 
+                db.SaveChanges();
 
                 List<Vet> vets = CreateAllVets();
                 foreach (var item in vets)
                 {
                     db.Vet.Add(item);
                 }
+                //Save new objects 
+                db.SaveChanges();
 
                 List<Appointment> appointments = CreateAllAppointment();
                 foreach (var item in appointments)
                 {
                     db.Appointment.Add(item);
                 }
+                //Save new objects 
+                db.SaveChanges();
 
                 //In Progress
                 List<Bill> services = CreateAllBills();
@@ -59,6 +65,8 @@ namespace DatabaseManagemant
                 {
                     db.Bill.Add(item);
                 }
+                //Save new objects 
+                db.SaveChanges();
 
                 Console.WriteLine("Database Created");
                 //  db.Pet.Add(pet);
@@ -68,7 +76,7 @@ namespace DatabaseManagemant
             Console.WriteLine("Add Pet to db");
 
             //Save new objects 
-            db.SaveChanges();
+            //db.SaveChanges();
             Console.WriteLine("Save the objects to the database");
             Console.ReadLine();
         }
@@ -114,7 +122,7 @@ namespace DatabaseManagemant
             vets.Add(v3);
             vets.Add(v4);
 
-            return vets.ToList();
+            return vets;
         }
         public static List<PetOwner> CreateAllOwners()
         {
@@ -152,7 +160,7 @@ namespace DatabaseManagemant
                 owners.Add(po);
             }
 
-            return owners.ToList();
+            return owners;
         }
         public static async Task<List<Pet>> CreateAllPetsAsync()
         {
@@ -252,7 +260,7 @@ namespace DatabaseManagemant
 
                 pets.Add(pet);
             }
-            return pets.ToList();
+            return pets;
         }
         public static List<Appointment> CreateAllAppointment()
         {
@@ -282,7 +290,7 @@ namespace DatabaseManagemant
                 appointments.Add(app1);
             }
 
-            return appointments.ToList();
+            return appointments;
 
         }
         public static List<Bill> CreateAllBills()
@@ -322,7 +330,7 @@ namespace DatabaseManagemant
                 bill.Add(b1);
 
             }
-            return bill.ToList();
+            return bill;
         }
         private static void CreateRandomDataAppointment(out DateTime dateDays, out AppointmentStatus status, out AppointmentType appointment_pathWay, out TimeSpan t)
         {
