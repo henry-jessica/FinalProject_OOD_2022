@@ -82,9 +82,7 @@ namespace FinalProject_OOD_2022
         public string OwnerFirstName { get; set; }
         public string OwnerLastName { get; set; }
         public DateTime OwnerDBO { get; set; }
-        //public List<Pet> Pets { get; set; }
-        //public string Phone { get; set; }
-        // public Service Service { get; set; }
+        public List<Pet> Pets { get; set; }
     }
 
     //public class Address
@@ -101,7 +99,7 @@ namespace FinalProject_OOD_2022
     //Create Doctor Properties
     public class Vet
     {
-        [Key, Column(Order = 1)]
+        [Key]
         public int VetID { get; set; }
         public string FirstName { get; set; }
         public string SecondName { get; set; }
@@ -137,8 +135,6 @@ namespace FinalProject_OOD_2022
         public string Description { get; set; }
         public AppointmentStatus Status { get; set; }
         public AppointmentType Appointment_PathWay { get; set; }
-
-
     }
 
     //Create Tables 

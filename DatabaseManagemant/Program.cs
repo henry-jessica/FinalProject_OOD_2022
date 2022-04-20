@@ -114,7 +114,7 @@ namespace DatabaseManagemant
             vets.Add(v3);
             vets.Add(v4);
 
-            return vets;
+            return vets.ToList();
         }
         public static List<PetOwner> CreateAllOwners()
         {
@@ -152,7 +152,7 @@ namespace DatabaseManagemant
                 owners.Add(po);
             }
 
-            return owners;
+            return owners.ToList();
         }
         public static async Task<List<Pet>> CreateAllPetsAsync()
         {
@@ -252,7 +252,7 @@ namespace DatabaseManagemant
 
                 pets.Add(pet);
             }
-            return pets;
+            return pets.ToList();
         }
         public static List<Appointment> CreateAllAppointment()
         {
@@ -282,7 +282,7 @@ namespace DatabaseManagemant
                 appointments.Add(app1);
             }
 
-            return appointments;
+            return appointments.ToList();
 
         }
         public static List<Bill> CreateAllBills()
@@ -322,7 +322,7 @@ namespace DatabaseManagemant
                 bill.Add(b1);
 
             }
-            return bill;
+            return bill.ToList();
         }
         private static void CreateRandomDataAppointment(out DateTime dateDays, out AppointmentStatus status, out AppointmentType appointment_pathWay, out TimeSpan t)
         {
