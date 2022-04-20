@@ -43,14 +43,14 @@ namespace FinalProject_OOD_2022
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            //Folder.Visibility = Visibility.Collapsed;
+           // Folder.Visibility = Visibility.Collapsed;
 
             //var query = from t in db.Pet
             //            where t != null
             //            select new
             //            {
             //                Name = t.PetName,
-            //                Appoitment_Time = t.AppointmentTime,
+            //               // Appoitment_Time = t.AppointmentTime,
             //            };
             //DgAppointments.ItemsSource = query.ToList();
         }
@@ -58,20 +58,20 @@ namespace FinalProject_OOD_2022
         private void Appointment_Btn(object sender, RoutedEventArgs e)
         {
 
-            var query = from p in db.Pet
-                        select p.PetName;
+            //var query = from p in db.Pet
+            //            select p.PetName;
 
-            cbxPets.ItemsSource = query.ToList();
+            //cbxPets.ItemsSource = query.ToList();
 
 
             //create new appointment 
             //Folder.Visibility = Visibility.Collapsed;
-            //DgCreateAppointments.ItemsSource = db.Pet.Where(p => p.AppointmentTime != null).ToList();
+         //   DgCreateAppointments.ItemsSource = db.Pet.Where(p => p.AppointmentTime != null).ToList();
         }
 
         private void blxChanged(object sender, SelectionChangedEventArgs e)
         {
-            string petSelected = cbxPets.SelectedItem as string;
+            //string petSelected = cbxPets.SelectedItem as string;
 
             //if (petSelected != null)
             //{

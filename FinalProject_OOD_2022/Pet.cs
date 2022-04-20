@@ -24,7 +24,6 @@ namespace FinalProject_OOD_2022
         Routine,
         Emergency
     }
-
     public enum PetType
     {
         Dog,
@@ -76,7 +75,6 @@ namespace FinalProject_OOD_2022
         public Appointment Appointment { get; set; }
         #endregion
     }
-
     public class PetOwner
     {
         [Key]
@@ -84,12 +82,10 @@ namespace FinalProject_OOD_2022
         public string OwnerFirstName { get; set; }
         public string OwnerLastName { get; set; }
         public DateTime OwnerDBO { get; set; }
-        public List<Pet> Pets { get; set; }
-        public string Phone { get; set; }
+        //public List<Pet> Pets { get; set; }
+        //public string Phone { get; set; }
         // public Service Service { get; set; }
     }
-
-
 
     //public class Address
     //{
@@ -100,7 +96,6 @@ namespace FinalProject_OOD_2022
     //    string County { get; set; }
     //    string Country { get; set; }
     //    public Vet Vet { get; set; }
-
     //}
 
     //Create Doctor Properties
@@ -112,16 +107,14 @@ namespace FinalProject_OOD_2022
         public string SecondName { get; set; }
         public VetSpeciality VetSpeciality { get; set; }
         public DateTime DBO { get; set; }
-        [Key, Column(Order = 2)]
         public List<Appointment> Appointments { get; set; }
-        //   public Address Address { get; set; }
     }
 
 
-    public class Service
+    public class Bill
     {
         [Key]
-        public int serviceId { get; set; }
+        public int billingId { get; set; }
         public double price { get; set; }
         public string Description { get; set; }
         public DateTime DatePayment { get; set; }
@@ -129,6 +122,7 @@ namespace FinalProject_OOD_2022
         public int VetID { get; set; }
         public int OwnerID { get; set; }
         public int PetID { get; set; }
+        public int AppointmentID { get; set; }
     }
 
     //Create Appintment Table 
@@ -144,16 +138,18 @@ namespace FinalProject_OOD_2022
         public AppointmentStatus Status { get; set; }
         public AppointmentType Appointment_PathWay { get; set; }
 
+
     }
 
     //Create Tables 
     public class PetData : DbContext
     {
-        public PetData() : base("PetData23") { }
+        public PetData() : base("PetDatabase200422") { }
         public DbSet<PetOwner> PetOwner { set; get; }
         public DbSet<Pet> Pet { set; get; }
         public DbSet<Vet> Vet { set; get; }
-        public DbSet<Service> Service { set; get; }
+
+        public DbSet<Bill> Bill { set; get; }
         public DbSet<Appointment> Appointment { set; get; }
 
     }

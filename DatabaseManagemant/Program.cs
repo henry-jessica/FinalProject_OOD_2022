@@ -21,7 +21,7 @@ namespace DatabaseManagemant
         static async Task Main(string[] args)
         {
 
-             PetData db = new PetData();
+            PetData db = new PetData();
 
 
             using (db)
@@ -34,7 +34,7 @@ namespace DatabaseManagemant
                     db.PetOwner.Add(item);
                 }
 
-                //Add all pet 
+                ////Add all pet 
                 List<Pet> pets = await CreateAllPetsAsync();
                 foreach (var item in pets)
                 {
@@ -47,25 +47,28 @@ namespace DatabaseManagemant
                     db.Vet.Add(item);
                 }
 
-                List<Appointment> appointments = CreateAllAppointment(pets); 
+                List<Appointment> appointments = CreateAllAppointment();
                 foreach (var item in appointments)
                 {
-                   db.Appointment.Add(item);
+                    db.Appointment.Add(item);
                 }
 
-                List<Service> services = CreateAllServices();
+                //In Progress
+                List<Bill> services = CreateAllBills();
                 foreach (var item in services)
                 {
-                    db.Service.Add(item);
+                    db.Bill.Add(item);
                 }
+
                 Console.WriteLine("Database Created");
                 //  db.Pet.Add(pet);
 
 
             }
             Console.WriteLine("Add Pet to db");
+
             //Save new objects 
-          //  db.SaveChanges();
+            db.SaveChanges();
             Console.WriteLine("Save the objects to the database");
             Console.ReadLine();
         }
@@ -147,8 +150,6 @@ namespace DatabaseManagemant
                     OwnerDBO = ownerDOB
                 };
                 owners.Add(po);
-
-
             }
 
             return owners;
@@ -253,22 +254,22 @@ namespace DatabaseManagemant
             }
             return pets;
         }
-        public static List<Appointment> CreateAllAppointment(List<Pet> pets)
+        public static List<Appointment> CreateAllAppointment()
         {
             List<Appointment> appointments = new List<Appointment>();
-          
-            for (int i = 0; i < 30; i++)
+
+            for (int i = 0; i < 10; i++)
             {
                 DateTime dateDays;
                 AppointmentStatus status;
                 AppointmentType appointment_pathWay;
-                TimeSpan t; 
+                TimeSpan t;
                 CreateRandomDataAppointment(out dateDays, out status, out appointment_pathWay, out t);
 
                 Appointment app1 = new Appointment
                 {
                     ID = i,
-                    PetID = rnd.Next(pets.Count),
+                    PetID = rnd.Next(20),
                     VetID = rnd.Next(4),
                     Time = t,
                     Date = dateDays,
@@ -284,15 +285,45 @@ namespace DatabaseManagemant
             return appointments;
 
         }
-        
-        public static List<Service> CreateAllServices()
+        public static List<Bill> CreateAllBills()
         {
-            List<Service> services = new List<Service>();
+            //Create Pet Names - male and famale 
+            string[] Description = {
+                        "Shower", "Surgery L Leg", "change band aid", "cancer treatment", "Exams", "Surgery R Leg",
+                        "Routine Appointment", "Ugency Appointment", "Dentist", "Massage"};
 
-            return services;
+
+            string randomDescription = Description[rnd.Next(10)];
+
+            //get random gender of pet 
+            var statusPayment = Enum.GetValues(typeof(ServiceStatus));
+            ServiceStatus status = (ServiceStatus)statusPayment.GetValue(rnd.Next(statusPayment.Length));
+
+
+            var rDouble = rnd.NextDouble();
+            List<Bill> bill = new List<Bill>();
+
+            for (int i = 0; i < Description.Length; i++)
+            {
+                var rRangeDouble = rDouble * (600 - 1) + 1;
+
+                Bill b1 = new Bill()
+                {
+                    billingId = i,
+                    price = rRangeDouble,
+                    Description = randomDescription,
+                    DatePayment = GenerateRandomDBO(2, 5),
+                    StatusPayment = status,
+                    VetID = rnd.Next(4),
+                    OwnerID = rnd.Next(1, 30),
+                    PetID = rnd.Next(1, 40),
+                    AppointmentID = rnd.Next(20),
+                };
+                bill.Add(b1);
+
+            }
+            return bill;
         }
-
-
         private static void CreateRandomDataAppointment(out DateTime dateDays, out AppointmentStatus status, out AppointmentType appointment_pathWay, out TimeSpan t)
         {
             //create random days
@@ -304,7 +335,7 @@ namespace DatabaseManagemant
             TimeSpan end = TimeSpan.FromHours(18);
             int maxMinutes = (int)((end - start).TotalMinutes);
             int minutes = rnd.Next(maxMinutes);
-              t = start.Add(TimeSpan.FromMinutes(minutes));
+            t = start.Add(TimeSpan.FromMinutes(minutes));
 
             //get random Status
             var AppintmentStatus = Enum.GetValues(typeof(GenderType));
@@ -314,8 +345,6 @@ namespace DatabaseManagemant
             var Appointment_PathWay = Enum.GetValues(typeof(GenderType));
             appointment_pathWay = (AppointmentType)Appointment_PathWay.GetValue(rnd.Next(Appointment_PathWay.Length));
         }
-
-
         public static DateTime GenerateRandomDBO(int ageMin, int AgeMax)
         {
             DateTime date1 = DateTime.Now.AddYears(-AgeMax);
