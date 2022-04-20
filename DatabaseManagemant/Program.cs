@@ -38,14 +38,18 @@ namespace DatabaseManagemant
                     db.Pet.Add(item);
                 }
 
+                List<Vet> vets = CreateAllVets();
+                foreach (var item in vets)
+                {
+                    db.Vet.Add(item);
+                }
+
 
                 Console.WriteLine("Database Created");
                 //  db.Pet.Add(pet);
 
 
             }
-
-
                 Console.WriteLine("Add Pet to db");
                 //Save new objects 
                 db.SaveChanges();
@@ -53,6 +57,53 @@ namespace DatabaseManagemant
                 Console.ReadLine();
         }
 
+        public static List<Vet> CreateAllVets()
+        {
+            List<Vet> vets = new List<Vet>();
+            Vet v1 = new Vet
+            {
+                VetID = 1,
+                FirstName = "Thomas",
+                SecondName = "Azanelly",
+                VetSpeciality = VetSpeciality.Pathology,
+                DBO = GenerateRandomDBO(25, 50),
+                Address = "Sligo Town"
+            };
+            Vet v2 = new Vet
+            {
+                VetID = 2,
+                FirstName = "Carolina",
+                SecondName = "Henry",
+                VetSpeciality = VetSpeciality.Nutrition,
+                DBO = GenerateRandomDBO(25, 50),
+                Address = "Sligo Town"
+            };
+            Vet v3 = new Vet
+            {
+                VetID = 1,
+                FirstName = "Jack",
+                SecondName = "Zuck",
+                VetSpeciality = VetSpeciality.Emergency,
+                DBO = GenerateRandomDBO(25, 50),
+                Address = "Av.11 - Ballinode Sligo"
+            };
+            Vet v4 = new Vet
+            {
+                VetID = 1,
+                FirstName = "Andrea",
+                SecondName = "McGuinness",
+                VetSpeciality = VetSpeciality.Ophthalmology,
+                DBO = GenerateRandomDBO(25, 50),
+                Address = "Av.11 - Ballinode Sligo"
+            };
+
+            vets.Add(v1); 
+            vets.Add(v2);
+            vets.Add(v3); 
+            vets.Add(v4);
+
+            return vets; 
+        }
         public static List<PetOwner> CreateAllOwners()
         {
 

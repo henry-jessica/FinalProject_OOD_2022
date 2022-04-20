@@ -9,14 +9,10 @@ using System.ComponentModel.DataAnnotations;
 namespace FinalProject_OOD_2022
 {
     //Enums 
-    public enum DoctorSpeciality
+    public enum VetSpeciality
     {
         Surgery,
         Nutrition,
-        Bones,
-        Anesthesia,
-        Dentistry,
-        Dermatology,
         Emergency,
         Ophthalmology,
         Pathology,
@@ -94,7 +90,7 @@ namespace FinalProject_OOD_2022
         string Description { get; set; }
         DateTime DatePayment { get; set; }
         ServiceStatus Status { get; set; }
-        Doctor DoctorID { get; set; }
+        Vet VetID { get; set; }
         PetOwner OwnerID { get; set; }
         Pet PetID { get; set; }
     }
@@ -112,13 +108,13 @@ namespace FinalProject_OOD_2022
     }
 
     //Create Doctor Properties
-    public class Doctor
+    public class Vet
     {
         [Key]
-        public int DoctorID { get; set; }
+        public int VetID { get; set; }
         public string FirstName { get; set; }
         public string SecondName { get; set; }
-        public DoctorSpeciality DoctorSpeciality { get; set; }
+        public VetSpeciality VetSpeciality { get; set; }
         public DateTime DBO { get; set; }
         public List<Appointment> Appointments { get; set; }
         public string Address { get; set; }
@@ -130,10 +126,10 @@ namespace FinalProject_OOD_2022
         [Key]
         public int ID { get; set; }
         public Pet PetID { get; set; }
-        public Doctor DoctorID { get; set; }
+        public Vet VetID { get; set; }
         public DateTime Date { get; set; }
         public DateTime Time { get; set; }
-
+        string Description { get; set; }
         public AppointmentStatus Status { get; set; }
     }
 
@@ -143,8 +139,7 @@ namespace FinalProject_OOD_2022
         public PetData() : base("PetDatabase9") { }
         public DbSet<PetOwner> PetOwner { set; get; }
         public DbSet<Pet> Pet { set; get; }
-        // public DbSet<Doctor> Doctor { set; get; }
+        public DbSet<Vet> Vet { set; get; }
         //public DbSet<Address> Address { set; get; }
-
     }
 }
