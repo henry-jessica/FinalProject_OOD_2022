@@ -79,7 +79,7 @@ namespace DatabaseManagemant
 
         public static List<Vet> CreateAllVets()
         {
-            List<Appointment> appointments = CreateAllAppointment();
+            List<Appointment> appointments = CreateAllAppointment(1);
             List<Vet> vets = new List<Vet>();
             Vet v1 = new Vet
             {
@@ -98,7 +98,7 @@ namespace DatabaseManagemant
                 },
                 Appointments = appointments,
             };
-            List<Appointment> appointments2 = CreateAllAppointment();
+            List<Appointment> appointments2 = CreateAllAppointment(2);
             Vet v2 = new Vet
             {
                 VetID = 2,
@@ -117,7 +117,7 @@ namespace DatabaseManagemant
                 Appointments = appointments2,
             };
 
-            List<Appointment> appointments3 = CreateAllAppointment();
+            List<Appointment> appointments3 = CreateAllAppointment(3);
             Vet v3 = new Vet
             {
                 VetID = 3,
@@ -136,7 +136,7 @@ namespace DatabaseManagemant
                 Appointments = appointments3,
             };
 
-            List<Appointment> appointment4 = CreateAllAppointment();
+            List<Appointment> appointment4 = CreateAllAppointment(4);
             Vet v4 = new Vet
             {
                 VetID = 4,
@@ -330,7 +330,7 @@ namespace DatabaseManagemant
             }
             return pets;
         }
-        public static List<Appointment> CreateAllAppointment()
+        public static List<Appointment> CreateAllAppointment(int vetId)
         {
             Console.WriteLine("Creating Appointment");
 
@@ -341,45 +341,43 @@ namespace DatabaseManagemant
             AppointmentType appointment_pathWay;
             TimeSpan t;
             CreateRandomDataAppointment(out dateDays, out status, out appointment_pathWay, out t);
-
+          
+       
             for (int i = 0; i < 10; i++)
             {
-
+                Bill bill = CreateAllBills(i, dateDays, vetId );
 
                 //get a random bill for each appointment
-
                 int petId = rnd.Next(30);
-                int vetId = rnd.Next(4);
-                 Bill bill = CreateAllBills(i, dateDays, vetId, petId);
+               // int vetId = rnd.Next(4);
+                
                 Appointment app1 = new Appointment
                 {
                     ID = i,
                     PetID = petId,
-                    //VetID = vetId,
-                    //    Time = t,
-                    //   Date = DateTime.Now,
+                    VetID = vetId,
+                    Time = t,
+                    Date = DateTime.Now,
                     Status = status,
                     Appointment_PathWay = appointment_pathWay,
-                    // Bill = bill,
+                    Bill = bill,
                 };
 
                 //  Console.WriteLine(app1.ID + " Ped ID" + app1.PetID + " VetID " + app1.VetID + "Date " + app1.Date + " " + app1.Appointment_PathWay);
 
                 appointments.Add(app1);
             }
-
-
             return appointments;
 
         }
-        public static Bill CreateAllBills(int appointmentId, DateTime dayOfAppointment, int vetId, int petId)
+        public static Bill CreateAllBills(int appointmentId, DateTime dayOfAppointment, int petId)
         {
             //Create Pet Names - male and famale 
             string[] Description = {
                         "Shower", "Surgery L Leg", "change band aid", "cancer treatment", "Exams", "Surgery R Leg",
                         "Routine Appointment", "Ugency Appointment", "Dentist", "Massage"};
 
-            Bill bill = new Bill();
+          //  Bill bill = new Bill();
 
             Console.WriteLine("Creating Bill");
 
@@ -400,7 +398,7 @@ namespace DatabaseManagemant
                 Description = randomDescription,
                 DatePayment = dayOfAppointment.AddDays(15),
                 StatusPayment = status,
-                VetID = vetId,
+               // VetID = vetId,
                 //  OwnerID = rnd.Next(1, 30),
                 PetID = petId,
                 AppointmentID = appointmentId,
@@ -409,17 +407,7 @@ namespace DatabaseManagemant
 
             //}
             Console.WriteLine(b1.billingId + "AppointmentID " + b1.AppointmentID + "  " + b1.DatePayment + "  " + b1.price);
-
-            PetData db = new PetData();
-            using (db)
-            {
-
-                db.Bill.Add(b1);
-
-                db.SaveChanges();
-            }
-
-            return bill;
+            return b1;
         }
         private static void CreateRandomDataAppointment(out DateTime dateDays, out AppointmentStatus status, out AppointmentType appointment_pathWay, out TimeSpan t)
         {
