@@ -119,10 +119,10 @@ namespace FinalProject_OOD_2022
         public string Description { get; set; }
         public DateTime DatePayment { get; set; }
         public ServiceStatus StatusPayment { get; set; }
-        public int VetID { get; set; }
+     //   public int VetID { get; set; }
         //public int OwnerID { get; set; }
-        public int PetID { get; set; }
-        public int AppointmentID { get; set; }
+     //   public int PetID { get; set; }
+    //    public int AppointmentID { get; set; }
     }
 
     //Create Appintment Table 
@@ -144,7 +144,7 @@ namespace FinalProject_OOD_2022
     //Create Tables 
     public class PetData : DbContext
     {
-        public PetData() : base("DataTimeBug9") { }
+        public PetData() : base("DataCreateFronted") { }
         public DbSet<PetOwner> PetOwner { set; get; }
         public DbSet<Pet> Pet { set; get; }
         public DbSet<Vet> Vet { set; get; }

@@ -400,13 +400,13 @@ namespace DatabaseManagemant
                 StatusPayment = status,
                // VetID = vetId,
                 //  OwnerID = rnd.Next(1, 30),
-                PetID = petId,
-                AppointmentID = appointmentId,
+               // PetID = petId,
+                //AppointmentID = appointmentId,
             };
             //  bill.Add(b1);
 
             //}
-            Console.WriteLine(b1.billingId + "AppointmentID " + b1.AppointmentID + "  " + b1.DatePayment + "  " + b1.price);
+            Console.WriteLine(b1.billingId + "AppointmentID "  + "  " + b1.DatePayment + "  " + b1.price);
             return b1;
         }
         private static void CreateRandomDataAppointment(out DateTime dateDays, out AppointmentStatus status, out AppointmentType appointment_pathWay, out TimeSpan t)

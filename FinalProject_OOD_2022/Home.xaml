@@ -10,8 +10,7 @@
       
          Background="{DynamicResource MaterialDesignPaper}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-      Loaded="Window_Loaded"
-        >
+      Loaded="Window_Loaded">
 
 
     <Grid Margin="10">
@@ -28,46 +27,36 @@
             <StackPanel Grid.Column="0"  Margin="20 20">
                 <Button Margin="0 10" Height="40" Click="Appointment_Btn">New Appointment</Button>
                 <Button Margin="0 10" Height="40">New Patient</Button>
-                <Button Margin="0 10" Height="40">View Bill</Button>
-                <Button Margin="0 10" Height="40">View Patient</Button>
+                <Button Margin="0 10" Height="40" Click="ViewAllBills">View Bill</Button>
+                <Button Margin="0 10" Height="40" Click="Btn_Display_Patient">View Patient</Button>
                 <Button Margin="0 10" Height="40"  Click="Button_Click_1">View Appointment</Button>
                 <Button Margin="0 20" Height="29" Width="76" Background="#FFF78F8F"  Click="Button_Click">Exit</Button>
             </StackPanel>
             <StackPanel Grid.Column="1">
-                <!--<Image  Source="images/pets.png" Name="Folder" Height="410" Width="780"/>-->
 
-                <!--Create Appointment-->
-
-
-                <!--View Appointment-->
-                <Grid>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="20*"/>
+                            <RowDefinition Height="50*"/>
+                            <RowDefinition Height="30*"/>
+                         </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="20*" />
-                        <ColumnDefinition Width="80*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Label Content="Select Pet" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0"/>
-                    <ComboBox x:Name="cbxPets" Margin="10,10,137,13"  Grid.Column="1" Grid.Row="0" SelectionChanged="blxChanged"/>
-                    <TextBlock x:Name="tbxPetDetails"  Grid.Row="2" Grid.ColumnSpan="2" />
+
+                    <ListBox Grid.Row="1" Grid.Column="0" Margin="10" Name="lbxPatient" 
+                             SelectionChanged="lbxPatient_SectionChanged"/>
+                    <ListBox Grid.Row="1" Grid.Column="1" Margin="10"
+                             Name="lbxBills" SelectionChanged="lbxBills_SelectionChanged"/>
+
+                    <DataGrid Margin="10" 
+                              Height="400" 
+                              Grid.Row="3" Grid.Column="0" x:Name="BillDetails" 
+                              Grid.ColumnSpan="2"/>
                 </Grid>
 
-                <!--View Appointment-->
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="25*"/>
-                        <ColumnDefinition Width="750*"/>
-                        <ColumnDefinition Width="21*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="20*"/>
-                        <RowDefinition Height="80*"/>
-                    </Grid.RowDefinitions>
-                    <DataGrid Margin="10,10,10,10" Grid.Row="1" x:Name="DgAppointments" Grid.ColumnSpan="3"/>
-                </Grid>
+                <!--</Grid>-->
 
             </StackPanel>
         </Grid>
