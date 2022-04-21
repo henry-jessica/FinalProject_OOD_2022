@@ -14,34 +14,34 @@ namespace DatabaseManagemant
     internal class Program
     {
 
-        public static List<PetOwner> allOwners = new List<PetOwner>();
         static Random rnd = new Random();
+
         static async Task Main(string[] args)
         {
 
             PetData db = new PetData();
+
             using (db)
             {
-
-
                 //Add all owner from the list to db Pet Owner table
-                List<PetOwner> owners = CreateAllOwners();
+                List<PetOwner> owners = await CreateAllOwnersAsync();
 
                 foreach (var item in owners)
                 {
                     db.PetOwner.Add(item);
                 }
+
                 //Save new objects 
                 db.SaveChanges();
 
-                ////Add all pet 
-                List<Pet> pets = await CreateAllPetsAsync();
-                foreach (var item in pets)
-                {
-                    db.Pet.Add(item);
-                }
-                //Save new objects 
-                db.SaveChanges();
+                //////Add all pet 
+                //List<Pet> pets = await CreateAllPetsAsync();
+                //foreach (var item in pets)
+                //{
+                //    db.Pet.Add(item);
+                //}
+                ////Save new objects 
+                //db.SaveChanges();
 
                 List<Vet> vets = CreateAllVets();
                 foreach (var item in vets)
@@ -51,38 +51,35 @@ namespace DatabaseManagemant
                 //Save new objects 
                 db.SaveChanges();
 
-                List<Appointment> appointments = CreateAllAppointment();
-                foreach (var item in appointments)
-                {
-                    db.Appointment.Add(item);
-                }
-                //Save new objects 
-                db.SaveChanges();
+                //List<Appointment> appointments = CreateAllAppointment();
+                //foreach (var item in appointments)
+                //{
+                //    db.Appointment.Add(item);
+                //}
+                ////Save new objects 
+                //db.SaveChanges();
 
                 //In Progress
-                List<Bill> services = CreateAllBills();
-                foreach (var item in services)
-                {
-                    db.Bill.Add(item);
-                }
+                //List<Bill> services = CreateAllBills();
+                //foreach (var item in services)
+                //{
+                //    db.Bill.Add(item);
+                //}
                 //Save new objects 
                 db.SaveChanges();
 
                 Console.WriteLine("Database Created");
-                //  db.Pet.Add(pet);
 
 
             }
             Console.WriteLine("Add Pet to db");
-
-            //Save new objects 
-            //db.SaveChanges();
             Console.WriteLine("Save the objects to the database");
             Console.ReadLine();
         }
 
         public static List<Vet> CreateAllVets()
         {
+            List<Appointment> appointments = CreateAllAppointment();
             List<Vet> vets = new List<Vet>();
             Vet v1 = new Vet
             {
@@ -91,7 +88,17 @@ namespace DatabaseManagemant
                 SecondName = "Azanelly",
                 VetSpeciality = VetSpeciality.Pathology,
                 DBO = GenerateRandomDBO(25, 50),
+                Address = new Address
+                {
+                    ZipCode = "AZX",
+                    Street = "O'Connel",
+                    Town = "Sligo",
+                    County = "Sligo",
+                    Country = "IE",
+                },
+                Appointments = appointments,
             };
+            List<Appointment> appointments2 = CreateAllAppointment();
             Vet v2 = new Vet
             {
                 VetID = 2,
@@ -99,7 +106,18 @@ namespace DatabaseManagemant
                 SecondName = "Henry",
                 VetSpeciality = VetSpeciality.Nutrition,
                 DBO = GenerateRandomDBO(25, 50),
+                Address = new Address
+                {
+                    ZipCode = "AAA-AAAA",
+                    Street = "O'Connel",
+                    Town = "Sligo",
+                    County = "Sligo",
+                    Country = "IE",
+                },
+                Appointments = appointments2,
             };
+
+            List<Appointment> appointments3 = CreateAllAppointment();
             Vet v3 = new Vet
             {
                 VetID = 3,
@@ -107,7 +125,18 @@ namespace DatabaseManagemant
                 SecondName = "Zuck",
                 VetSpeciality = VetSpeciality.Emergency,
                 DBO = GenerateRandomDBO(25, 50),
+                Address = new Address
+                {
+                    ZipCode = "BBB-BBBB",
+                    Street = "O'Connel",
+                    Town = "Sligo",
+                    County = "Sligo",
+                    Country = "IE",
+                },
+                Appointments = appointments3,
             };
+
+            List<Appointment> appointment4 = CreateAllAppointment();
             Vet v4 = new Vet
             {
                 VetID = 4,
@@ -115,6 +144,15 @@ namespace DatabaseManagemant
                 SecondName = "McGuinness",
                 VetSpeciality = VetSpeciality.Ophthalmology,
                 DBO = GenerateRandomDBO(25, 50),
+                Address = new Address
+                {
+                    ZipCode = "CCC-CCC",
+                    Street = "O'Connel",
+                    Town = "Sligo",
+                    County = "Sligo",
+                    Country = "IE",
+                },
+                Appointments = appointment4,
             };
 
             vets.Add(v1);
@@ -124,9 +162,10 @@ namespace DatabaseManagemant
 
             return vets;
         }
-        public static List<PetOwner> CreateAllOwners()
+        public static async Task<List<PetOwner>> CreateAllOwnersAsync()
         {
-
+            Console.WriteLine("Creating Owner & Pets");
+            Console.WriteLine("----------------------------------------------");
 
             List<PetOwner> owners = new List<PetOwner>();
 
@@ -142,30 +181,49 @@ namespace DatabaseManagemant
                 "O'Reilly", "O'Sullivan", "Ryan", "Walsh", "Oregan", "Rubbys", "Willians", "Potry", "Davidson",
                 "Winters", "Moon", "Fox", "Martins", "Silva" };
 
-            ////Create 30 Owners
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+
+            //Create 30 Owners
             for (int i = 0; i < 30; i++)
             {
+                //generate random zipcode
+                string NewRandomZipCode = new string(Enumerable.Repeat(chars, 6)
+               .Select(s => s[rnd.Next(s.Length)]).ToArray());
+
                 //generate random data of birthday age is 20-60
+                DateTime ownerDOB = GenerateRandomDBO(18, 76);
 
-
-                DateTime ownerDOB = GenerateRandomDBO(20, 60);
+                List<Pet> pets = await CreateAllPetsAsync(i);
 
                 PetOwner po = new PetOwner()
                 {
                     OwnerID = i,
                     OwnerFirstName = firstNames[rnd.Next(30)],
                     OwnerLastName = secondNames[rnd.Next(30)],
-                    OwnerDBO = ownerDOB
+                    OwnerDBO = ownerDOB,
+                    Address = new Address
+                    {
+                        ZipCode = NewRandomZipCode + i,
+                        Street = "O'Connel",
+                        Town = "Leitrim",
+                        County = "Sligo",
+                        Country = "IE",
+                    },
+                    Pets = pets,
                 };
+
+                Console.WriteLine(po.OwnerID + " " + po.OwnerFirstName + "  " + po.OwnerLastName + " " + po.OwnerDBO);
+
                 owners.Add(po);
             }
 
             return owners;
         }
-        public static async Task<List<Pet>> CreateAllPetsAsync()
+        public static async Task<List<Pet>> CreateAllPetsAsync(int OwnerId)
         {
             List<Pet> pets = new List<Pet>();
-
+            Console.WriteLine("Create Pet");
             //Create Pet Names - male and famale 
             string[] petNameFemale = {
                         "Luna", "Bella", "Lily", "Lucy","Nala","Kitty", "Chloe", "Stella", "Zoe", "Lola","Bella",
@@ -176,10 +234,10 @@ namespace DatabaseManagemant
                     };
 
             Rootobject dogImage = null;
-            Class1 catImage = null;
             string image = null;
+            int numOfPetsPerList = rnd.Next(1, 4);
 
-            for (int j = 1; j <= 40; j++)
+            for (int j = 1; j <= numOfPetsPerList; j++)
             {
                 //generate random data of birthday age is 20-1
                 //DateTime date = DateTime.Now.AddYears(-20);
@@ -245,9 +303,11 @@ namespace DatabaseManagemant
 
                 }
 
-                Pet pet = new Pet()
+                int ConcatanateId = int.Parse(OwnerId.ToString() + j.ToString());
+
+                Pet pet = new Pet
                 {
-                    PetID = j,
+                    PetID = ConcatanateId,
                     PetName = randomname,
                     PetDBO = catDBO,
                     PetType = p_type,
@@ -264,6 +324,8 @@ namespace DatabaseManagemant
         }
         public static List<Appointment> CreateAllAppointment()
         {
+            Console.WriteLine("Creating Appointment");
+
             List<Appointment> appointments = new List<Appointment>();
 
             for (int i = 0; i < 10; i++)
@@ -274,62 +336,68 @@ namespace DatabaseManagemant
                 TimeSpan t;
                 CreateRandomDataAppointment(out dateDays, out status, out appointment_pathWay, out t);
 
+                //get a random bill for each appointment
+                Bill bill = CreateAllBills(i, dateDays);
+
                 Appointment app1 = new Appointment
                 {
                     ID = i,
-                    PetID = rnd.Next(20),
+                    PetID = rnd.Next(30),
                     VetID = rnd.Next(4),
                     Time = t,
                     Date = dateDays,
                     Status = status,
                     Appointment_PathWay = appointment_pathWay,
+                    Bill = bill,
                 };
 
-                Console.WriteLine(app1);
+                Console.WriteLine(app1.ID + " Ped ID" + app1.PetID + " VetID " + app1.VetID + "Date " + app1.Date + " " + app1.Appointment_PathWay);
 
                 appointments.Add(app1);
             }
 
+
             return appointments;
 
         }
-        public static List<Bill> CreateAllBills()
+        public static Bill CreateAllBills(int appointmentId, DateTime dayOfAppointment)
         {
             //Create Pet Names - male and famale 
             string[] Description = {
                         "Shower", "Surgery L Leg", "change band aid", "cancer treatment", "Exams", "Surgery R Leg",
                         "Routine Appointment", "Ugency Appointment", "Dentist", "Massage"};
 
+            Bill bill = new Bill();
+
+            Console.WriteLine("Creating Bill");
+
+            //for (int i = 0; i < Description.Length; i++)
+            //{
 
             string randomDescription = Description[rnd.Next(10)];
-
             //get random gender of pet 
             var statusPayment = Enum.GetValues(typeof(ServiceStatus));
             ServiceStatus status = (ServiceStatus)statusPayment.GetValue(rnd.Next(statusPayment.Length));
-
-
             var rDouble = rnd.NextDouble();
-            List<Bill> bill = new List<Bill>();
+            var rRangeDouble = rDouble * (600 - 1) + 1;
 
-            for (int i = 0; i < Description.Length; i++)
+            Bill b1 = new Bill()
             {
-                var rRangeDouble = rDouble * (600 - 1) + 1;
+                billingId = appointmentId + rnd.Next(40),
+                price = rRangeDouble,
+                Description = randomDescription,
+                DatePayment = dayOfAppointment.AddDays(15),
+                StatusPayment = status,
+                //  VetID = rnd.Next(4),
+                //  OwnerID = rnd.Next(1, 30),
+                //  PetID = rnd.Next(1, 40),
+                //  AppointmentID = rnd.Next(.Count),
+            };
+            //  bill.Add(b1);
 
-                Bill b1 = new Bill()
-                {
-                    billingId = i,
-                    price = rRangeDouble,
-                    Description = randomDescription,
-                    DatePayment = GenerateRandomDBO(2, 5),
-                    StatusPayment = status,
-                    VetID = rnd.Next(4),
-                    OwnerID = rnd.Next(1, 30),
-                    PetID = rnd.Next(1, 40),
-                    AppointmentID = rnd.Next(20),
-                };
-                bill.Add(b1);
+            //}
+            Console.WriteLine(b1.billingId + "AppointmentID " + b1.AppointmentID + "  " + b1.DatePayment + "  " + b1.price);
 
-            }
             return bill;
         }
         private static void CreateRandomDataAppointment(out DateTime dateDays, out AppointmentStatus status, out AppointmentType appointment_pathWay, out TimeSpan t)
@@ -367,12 +435,7 @@ namespace DatabaseManagemant
         //    List<Address> addresses = new List<Address>();
         //    Address a1 = new Address()
         //    {
-        //        ZipCode = "AZX",
-        //        Street = "O'Connel",
-        //        Town = "Sligo",
-        //        County = "Sligo",
-        //        Country = "IE",
-        //        Vet = 2,
+
         //    }; 
         //   return addresses;
     }
