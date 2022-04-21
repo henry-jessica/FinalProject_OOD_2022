@@ -119,9 +119,9 @@ namespace FinalProject_OOD_2022
         public string Description { get; set; }
         public DateTime DatePayment { get; set; }
         public ServiceStatus StatusPayment { get; set; }
-        //public int VetID { get; set; }
+        public int VetID { get; set; }
         //public int OwnerID { get; set; }
-        //public int PetID { get; set; }
+        public int PetID { get; set; }
         public int AppointmentID { get; set; }
     }
 
@@ -132,23 +132,23 @@ namespace FinalProject_OOD_2022
         public int ID { get; set; }
         public int PetID { get; set; }
 
-        public int VetID { get; set; }
-        public DateTime Date { get; set; }
-        public TimeSpan Time { get; set; }
-        public string Description { get; set; }
+      //  public int VetID { get; set; }
+      //  public DateTime Date { get; set; }
+      //  public TimeSpan Time { get; set; }
+       // public string Description { get; set; }
         public AppointmentStatus Status { get; set; }
         public AppointmentType Appointment_PathWay { get; set; }
-        public Bill Bill { get; set; }
+      //  public Bill Bill { get; set; }
     }
 
     //Create Tables 
     public class PetData : DbContext
     {
-        public PetData() : base("DataTimeBug") { }
+        public PetData() : base("DataTimeBug7") { }
         public DbSet<PetOwner> PetOwner { set; get; }
         public DbSet<Pet> Pet { set; get; }
         public DbSet<Vet> Vet { set; get; }
-        public DbSet Bill  { set; get; }
+        public DbSet<Bill> Bill { set; get; }
 
         public DbSet<Address> Address { get; set; }
         public DbSet<Appointment> Appointment { set; get; }

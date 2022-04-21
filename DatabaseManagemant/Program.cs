@@ -44,11 +44,11 @@ namespace DatabaseManagemant
                 //db.SaveChanges();
 
                 List<Vet> vets = CreateAllVets();
-                foreach (var item in vets)
-                {
-                    db.Vet.Add(item);
-                }
-                //Save new objects 
+                //foreach (var item in vets)
+                //{
+                //    db.Vet.Add(item);
+                //}
+                //    Save new objects
                 db.SaveChanges();
 
                 //List<Appointment> appointments = CreateAllAppointment();
@@ -159,7 +159,15 @@ namespace DatabaseManagemant
             vets.Add(v2);
             vets.Add(v3);
             vets.Add(v4);
-
+            PetData db = new PetData();
+            using (db)
+            {
+                foreach (var item in vets)
+                {
+                    db.Vet.Add(item);
+                }
+                db.SaveChanges();
+            }
             return vets;
         }
         public static async Task<List<PetOwner>> CreateAllOwnersAsync()
@@ -328,30 +336,34 @@ namespace DatabaseManagemant
 
             List<Appointment> appointments = new List<Appointment>();
 
+            DateTime dateDays;
+            AppointmentStatus status;
+            AppointmentType appointment_pathWay;
+            TimeSpan t;
+            CreateRandomDataAppointment(out dateDays, out status, out appointment_pathWay, out t);
+
             for (int i = 0; i < 10; i++)
             {
-                DateTime dateDays;
-                AppointmentStatus status;
-                AppointmentType appointment_pathWay;
-                TimeSpan t;
-                CreateRandomDataAppointment(out dateDays, out status, out appointment_pathWay, out t);
+
 
                 //get a random bill for each appointment
-                Bill bill = CreateAllBills(i, dateDays);
 
+                int petId = rnd.Next(30);
+                int vetId = rnd.Next(4);
+                 Bill bill = CreateAllBills(i, dateDays, vetId, petId);
                 Appointment app1 = new Appointment
                 {
                     ID = i,
-                    PetID = rnd.Next(30),
-                    VetID = rnd.Next(4),
-                    Time = t,
-                    Date = dateDays,
+                    PetID = petId,
+                    //VetID = vetId,
+                    //    Time = t,
+                    //   Date = DateTime.Now,
                     Status = status,
                     Appointment_PathWay = appointment_pathWay,
-                    Bill = bill,
+                    // Bill = bill,
                 };
 
-                Console.WriteLine(app1.ID + " Ped ID" + app1.PetID + " VetID " + app1.VetID + "Date " + app1.Date + " " + app1.Appointment_PathWay);
+                //  Console.WriteLine(app1.ID + " Ped ID" + app1.PetID + " VetID " + app1.VetID + "Date " + app1.Date + " " + app1.Appointment_PathWay);
 
                 appointments.Add(app1);
             }
@@ -360,7 +372,7 @@ namespace DatabaseManagemant
             return appointments;
 
         }
-        public static Bill CreateAllBills(int appointmentId, DateTime dayOfAppointment)
+        public static Bill CreateAllBills(int appointmentId, DateTime dayOfAppointment, int vetId, int petId)
         {
             //Create Pet Names - male and famale 
             string[] Description = {
@@ -381,22 +393,31 @@ namespace DatabaseManagemant
             var rDouble = rnd.NextDouble();
             var rRangeDouble = rDouble * (600 - 1) + 1;
 
-            Bill b1 = new Bill()
+            Bill b1 = new Bill
             {
                 billingId = appointmentId + rnd.Next(40),
                 price = rRangeDouble,
                 Description = randomDescription,
                 DatePayment = dayOfAppointment.AddDays(15),
                 StatusPayment = status,
-                //  VetID = rnd.Next(4),
+                VetID = vetId,
                 //  OwnerID = rnd.Next(1, 30),
-                //  PetID = rnd.Next(1, 40),
-                //  AppointmentID = rnd.Next(.Count),
+                PetID = petId,
+                AppointmentID = appointmentId,
             };
             //  bill.Add(b1);
 
             //}
             Console.WriteLine(b1.billingId + "AppointmentID " + b1.AppointmentID + "  " + b1.DatePayment + "  " + b1.price);
+
+            PetData db = new PetData();
+            using (db)
+            {
+
+                db.Bill.Add(b1);
+
+                db.SaveChanges();
+            }
 
             return bill;
         }
@@ -421,6 +442,7 @@ namespace DatabaseManagemant
             var Appointment_PathWay = Enum.GetValues(typeof(GenderType));
             appointment_pathWay = (AppointmentType)Appointment_PathWay.GetValue(rnd.Next(Appointment_PathWay.Length));
         }
+
         public static DateTime GenerateRandomDBO(int ageMin, int AgeMax)
         {
             DateTime date1 = DateTime.Now.AddYears(-AgeMax);
@@ -430,14 +452,6 @@ namespace DatabaseManagemant
             DateTime newDate = date1.AddDays(rnd.Next(numberOfDays));
             return newDate;
         }
-        //public static List<Address> CreateAllAddresses()
-        //{
-        //    List<Address> addresses = new List<Address>();
-        //    Address a1 = new Address()
-        //    {
-
-        //    }; 
-        //   return addresses;
     }
 }
 
@@ -447,10 +461,6 @@ public class Rootobject
     public string message { get; set; }
     public string status { get; set; }
 }
-//public class Rootobject2
-//{
-//    public Class1[] Property1 { get; set; }
-//}
 public class Class1
 {
     public object[] breeds { get; set; }
