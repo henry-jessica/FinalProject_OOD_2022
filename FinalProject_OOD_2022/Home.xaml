@@ -84,7 +84,7 @@
                 <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
             <Label Content="Pet Type" Grid.Row="0" Grid.Column="0"/>
-            <ComboBox Name="PetType" Grid.Column="0" Grid.Row="0"/>
+            <ComboBox Name="cbxPetType" Grid.Column="0" Grid.Row="0" SelectionChanged="cbxPetType_SelectionChanged" />
             <ListBox Name="lbxPet" Grid.Row="1" Grid.RowSpan="3" Grid.Column="0" SelectionChanged="blxPetChanged" />
             <ListView x:Name="lblPetDetails" 
                       HorizontalAlignment="Left"

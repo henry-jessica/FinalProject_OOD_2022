@@ -41,6 +41,9 @@ namespace FinalProject_OOD_2022
             var query = from p in db.Pet
                         select p;
             lbxPet.ItemsSource = query.ToList();
+
+            //Populate combobox
+            cbxPetType.ItemsSource = new string[] { "All", "Cat", "Dog" };
         }
         private void blxPetChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -66,7 +69,6 @@ namespace FinalProject_OOD_2022
                              where ap.PetID == petSelected.PetID
                              select new
                              {
-
                                  VetID = ap.VetID,
                                  Date = ap.Date,
                                  Time = ap.Time,
@@ -74,8 +76,9 @@ namespace FinalProject_OOD_2022
                                  Appointment_PathWay = ap.Appointment_PathWay,
 
                              };
-                           lblPetDetails.ItemsSource = query.ToList();
-                            Tbx_AppointmentDetails.ItemsSource = query1.ToList();
+
+                lblPetDetails.ItemsSource = query.ToList();
+                Tbx_AppointmentDetails.ItemsSource = query1.ToList();
             }
 
         }
@@ -177,5 +180,31 @@ namespace FinalProject_OOD_2022
 
         }
 
+
+        private void cbxPetType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //Reset
+            //All pets are displayed 
+            string petTypeSelected = cbxPetType.SelectedItem as string;
+
+          
+            if (petTypeSelected != null)
+            {
+                var query = from p in db.Pet
+                            where p.PetType.ToString() == petTypeSelected
+                            select p;
+                lbxPet.ItemsSource = query.ToList();
+
+                if (petTypeSelected == "All")
+                {
+                    //select from database all pets 
+                    var query2 = from p in db.Pet
+                                 select p;
+                    lbxPet.ItemsSource = query2.ToList();
+                }
+
+                //refresh lists 
+            }
+        }
     }
 }

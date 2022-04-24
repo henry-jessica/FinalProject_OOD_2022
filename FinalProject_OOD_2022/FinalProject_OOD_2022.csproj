@@ -71,6 +71,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Address.cs" />
+    <Compile Include="Migrations\202204241855011_InitialCreate.cs" />
+    <Compile Include="Migrations\202204241855011_InitialCreate.designer.cs">
+      <DependentUpon>202204241855011_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202204242049233_PetData.cs" />
+    <Compile Include="Migrations\202204242049233_PetData.designer.cs">
+      <DependentUpon>202204242049233_PetData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Vet.cs" />
     <Page Include="Home.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -87,6 +98,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="Appointment.cs" />
+    <Compile Include="Bill.cs" />
     <Compile Include="Pet.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -107,6 +120,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PetOwner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -120,6 +134,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Migrations\202204241855011_InitialCreate.resx">
+      <DependentUpon>202204241855011_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204242049233_PetData.resx">
+      <DependentUpon>202204242049233_PetData.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
