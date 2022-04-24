@@ -21,8 +21,10 @@ namespace FinalProject_OOD_2022
     public partial class Home : Window
     {
         List<Pet> allPets = new List<Pet>();
-
+        List<Appointment> allAppointments = new List<Appointment>();
         PetData db = new PetData();
+
+
         public Home()
         {
             InitializeComponent();
@@ -31,19 +33,23 @@ namespace FinalProject_OOD_2022
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            var query = from p in db.Pet
+                        select p;
+
+
+            allPets = query.ToList();
+            lbxPet.ItemsSource = allPets;
+
+            //Populate combobox
+            cbxPetType.ItemsSource = new string[] { "All", "Cat", "Dog" };
 
         }
 
         //ViewBase Patient Screen
         private void Btn_Display_Patient(object sender, RoutedEventArgs e)
         {
-            //select from database all pets 
-            var query = from p in db.Pet
-                        select p;
-            lbxPet.ItemsSource = query.ToList();
-
-            //Populate combobox
-            cbxPetType.ItemsSource = new string[] { "All", "Cat", "Dog" };
+          
+           
         }
         private void blxPetChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -51,19 +57,8 @@ namespace FinalProject_OOD_2022
 
             if (petSelected != null)
             {
-                var query = from p in db.Pet
-                            where p.PetID == petSelected.PetID
-                            select new
-                            {
-                                Image = p.PetImage,
-                                Name = p.PetName,
-                                DOB = p.PetDBO,
-                                OwnerID = p.OwnerID,
-                                PetOwnerFName = p.PetOwner.OwnerFirstName,
-                                PetOwnerLName = p.PetOwner.OwnerLastName,
-                                GenderType = p.GenderType,
-
-                            };
+                tblkPetDescription.Text = petSelected.PetDetailsRetrived();
+                ImgPetImage.Source = new BitmapImage(new Uri(petSelected.PetImage)); 
 
                 var query1 = from ap in db.Appointment
                              where ap.PetID == petSelected.PetID
@@ -77,7 +72,6 @@ namespace FinalProject_OOD_2022
 
                              };
 
-                lblPetDetails.ItemsSource = query.ToList();
                 Tbx_AppointmentDetails.ItemsSource = query1.ToList();
             }
 
@@ -93,8 +87,6 @@ namespace FinalProject_OOD_2022
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            // Folder.Visibility = Visibility.Collapsed;
-
             var query = from t in db.Pet
                         where t != null
                         select new
@@ -107,44 +99,13 @@ namespace FinalProject_OOD_2022
 
         private void Appointment_Btn(object sender, RoutedEventArgs e)
         {
-
-            //var query = from p in db.Pet
-            //            select p.PetName;
-
-            //cbxPets.ItemsSource = query.ToList();
-
-
-            //create new appointment 
-            //Folder.Visibility = Visibility.Collapsed;
-            //   DgCreateAppointments.ItemsSource = db.Pet.Where(p => p.AppointmentTime != null).ToList();
         }
 
         private void blxChanged(object sender, SelectionChangedEventArgs e)
         {
-            //string petSelected = cbxPets.SelectedItem as string;
-
-            //if (petSelected != null)
-            //{
-            //    var query = from d in db.Pet
-            //                where d.PetName == petSelected
-            //                select d.AppointmentTime;
-            //    var petType = query.ToList();
-            //    tbxPetDetails.Text = String.Format("Preis: {0}", petType[0]);
-
-
-
-            //}
-
-
 
 
         }
-
-
-
-
-
-
 
 
         private void ViewAllBills(object sender, RoutedEventArgs e)
@@ -185,25 +146,25 @@ namespace FinalProject_OOD_2022
         {
             //Reset
             //All pets are displayed 
-            string petTypeSelected = cbxPetType.SelectedItem as string;
+           ComboBox cbx = sender as ComboBox;
+           string petTypeSelected = cbx.SelectedItem as string;
 
-          
+
             if (petTypeSelected != null)
             {
-                var query = from p in db.Pet
-                            where p.PetType.ToString() == petTypeSelected
-                            select p;
-                lbxPet.ItemsSource = query.ToList();
 
-                if (petTypeSelected == "All")
+                switch (petTypeSelected)
                 {
-                    //select from database all pets 
-                    var query2 = from p in db.Pet
-                                 select p;
-                    lbxPet.ItemsSource = query2.ToList();
+                    case "Pet":
+                        lbxPet.ItemsSource = allPets.Where(b => b.Type().Contains("Dog")); 
+                        break;
+                    case "Cat":
+                        lbxPet.ItemsSource = allPets.Where(b => b.Type().Contains("Cat"));
+                        break;
+                        default:
+                        lbxPet.ItemsSource = allPets;
+                        break;
                 }
-
-                //refresh lists 
             }
         }
     }

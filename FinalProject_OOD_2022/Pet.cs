@@ -77,6 +77,16 @@ namespace FinalProject_OOD_2022
         {
             return $"#{PetID} - {PetName}";
         }
+        public string Type()
+        {
+            return PetType.ToString(); 
+        }
+
+        public string PetDetailsRetrived()
+        {
+            return $"Name: {PetName} {PetOwner.OwnerLastName}\nDOB: {PetDBO.ToString("dd/MM/yyyy")}" +
+                   $"\nType: {PetType}\nOwner: {PetOwner.OwnerFirstName} {PetOwner.OwnerLastName}"; 
+        }
     }
 
     //Create Tables 
