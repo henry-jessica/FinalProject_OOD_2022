@@ -20,8 +20,7 @@ namespace FinalProject_OOD_2022
     /// </summary>
     public partial class Home : Window
     {
-        public ObservableCollection<string> pets = new ObservableCollection<string>();
-        public List<PetOwner> owners = new List<PetOwner>();
+        List<Pet> allPets = new List<Pet>();
 
         PetData db = new PetData();
         public Home()
@@ -92,7 +91,11 @@ namespace FinalProject_OOD_2022
 
         private void Btn_Display_Patient(object sender, RoutedEventArgs e)
         {
+            //select from database all pets 
+            var query = from p in db.Pet
+                        select p; 
 
+            lbxPet.ItemsSource = query.ToList();
       
 
             //var query1 = from p in db.Pet
@@ -124,7 +127,7 @@ namespace FinalProject_OOD_2022
                          join b4 in db.PetOwner on b3.OwnerID equals b4.OwnerID
                          select b4; 
 
-            lbxPatient.ItemsSource = query1.ToList();
+            //lbxPatient.ItemsSource = query1.ToList();
 
 
             var query = from b in db.Bill

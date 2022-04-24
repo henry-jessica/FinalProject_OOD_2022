@@ -74,6 +74,12 @@ namespace FinalProject_OOD_2022
         public GenderType GenderType { get; set; }
         public Appointment Appointment { get; set; }
         #endregion
+
+        //Methods 
+        public override string ToString()
+        {
+            return $"#{PetID} - {PetName} {PetType.ToString().ToUpper()} {GenderType.ToString().ToUpper()}"; 
+        }
     }
     public class PetOwner
     {
