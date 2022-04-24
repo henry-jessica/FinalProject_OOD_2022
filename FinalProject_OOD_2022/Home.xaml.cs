@@ -34,6 +34,54 @@ namespace FinalProject_OOD_2022
 
         }
 
+        //ViewBase Patient Screen
+        private void Btn_Display_Patient(object sender, RoutedEventArgs e)
+        {
+            //select from database all pets 
+            var query = from p in db.Pet
+                        select p;
+            lbxPet.ItemsSource = query.ToList();
+        }
+        private void blxPetChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Pet petSelected = (Pet)lbxPet.SelectedItem;
+
+            if (petSelected != null)
+            {
+                var query = from p in db.Pet
+                            where p.PetID == petSelected.PetID
+                            select new
+                            {
+                                Image = p.PetImage,
+                                Name = p.PetName,
+                                DOB = p.PetDBO,
+                                OwnerID = p.OwnerID,
+                                PetOwnerFName = p.PetOwner.OwnerFirstName,
+                                PetOwnerLName = p.PetOwner.OwnerLastName,
+                                GenderType = p.GenderType,
+
+                            };
+
+                var query1 = from ap in db.Appointment
+                             where ap.PetID == petSelected.PetID
+                             select new
+                             {
+
+                                 VetID = ap.VetID,
+                                 Date = ap.Date,
+                                 Time = ap.Time,
+                                 Status = ap.Status,
+                                 Appointment_PathWay = ap.Appointment_PathWay,
+
+                             };
+                           lblPetDetails.ItemsSource = query.ToList();
+                            Tbx_AppointmentDetails.ItemsSource = query1.ToList();
+            }
+
+        }
+
+
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             //exit button
@@ -49,9 +97,9 @@ namespace FinalProject_OOD_2022
                         select new
                         {
                             Name = t.PetName,
-               
+
                         };
-           // DgAppointments.ItemsSource = query.ToList();
+            // DgAppointments.ItemsSource = query.ToList();
         }
 
         private void Appointment_Btn(object sender, RoutedEventArgs e)
@@ -65,7 +113,7 @@ namespace FinalProject_OOD_2022
 
             //create new appointment 
             //Folder.Visibility = Visibility.Collapsed;
-         //   DgCreateAppointments.ItemsSource = db.Pet.Where(p => p.AppointmentTime != null).ToList();
+            //   DgCreateAppointments.ItemsSource = db.Pet.Where(p => p.AppointmentTime != null).ToList();
         }
 
         private void blxChanged(object sender, SelectionChangedEventArgs e)
@@ -80,7 +128,7 @@ namespace FinalProject_OOD_2022
             //    var petType = query.ToList();
             //    tbxPetDetails.Text = String.Format("Preis: {0}", petType[0]);
 
-               
+
 
             //}
 
@@ -89,34 +137,12 @@ namespace FinalProject_OOD_2022
 
         }
 
-        private void Btn_Display_Patient(object sender, RoutedEventArgs e)
-        {
-            //select from database all pets 
-            var query = from p in db.Pet
-                        select p; 
-
-            lbxPet.ItemsSource = query.ToList();
-      
-
-            //var query1 = from p in db.Pet
-            //             select p.PetID;
-
-            //cbxPets.ItemsSource = query1.ToList();
 
 
-            //string petSelected = cbxPets.SelectedItem as string;
 
-            //if (petSelected != null)
-            //{   var query = from d in db.Pet
-            //    where d.PetName == petSelected
-            //               select d.PetDBO;
 
-            //    var petType = query.ToList();
 
-            //    tbxPetDetails.Text = String.Format("Preis: {0}", petType[0]);
 
-            //}
-        }
 
         private void ViewAllBills(object sender, RoutedEventArgs e)
         {
@@ -125,7 +151,7 @@ namespace FinalProject_OOD_2022
                          join b2 in db.Bill on b.Bill.billingId equals b2.billingId
                          join b3 in db.Pet on b.PetID equals b3.PetID
                          join b4 in db.PetOwner on b3.OwnerID equals b4.OwnerID
-                         select b4; 
+                         select b4;
 
             //lbxPatient.ItemsSource = query1.ToList();
 
@@ -133,15 +159,12 @@ namespace FinalProject_OOD_2022
             var query = from b in db.Bill
 
                          .Where(b => b.StatusPayment.ToString() == "Pendent")
-                         
+
                         select new
                         {
                             Name = b.StatusPayment
 
                         };
-
-         //   DgAppointments.ItemsSource = query.ToList();
-
         }
 
         private void lbxPatient_SectionChanged(object sender, SelectionChangedEventArgs e)
@@ -153,5 +176,6 @@ namespace FinalProject_OOD_2022
         {
 
         }
+
     }
 }

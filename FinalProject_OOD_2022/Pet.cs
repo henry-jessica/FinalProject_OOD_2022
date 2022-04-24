@@ -78,7 +78,7 @@ namespace FinalProject_OOD_2022
         //Methods 
         public override string ToString()
         {
-            return $"#{PetID} - {PetName} {PetType.ToString().ToUpper()} {GenderType.ToString().ToUpper()}"; 
+            return $"#{PetID} - {PetName}";
         }
     }
     public class PetOwner
@@ -145,6 +145,8 @@ namespace FinalProject_OOD_2022
         public AppointmentStatus Status { get; set; }
         public AppointmentType Appointment_PathWay { get; set; }
         public Bill Bill { get; set; }
+
+        
     }
 
     //Create Tables 

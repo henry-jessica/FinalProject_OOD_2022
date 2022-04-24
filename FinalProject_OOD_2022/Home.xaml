@@ -10,7 +10,41 @@
          Background="{DynamicResource MaterialDesignPaper}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
       Loaded="Window_Loaded">
-
+    <Window.Resources>
+        <DataTemplate x:Key="dataTemplatePet">
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <Image Source="{Binding Path=Image}" 
+                       Width="175"></Image>
+                <StackPanel Margin="5">
+                    <TextBlock Text="{Binding Path=Name}" 
+                               Margin="5"
+                               FontSize="12"/>
+                    <TextBlock Text="{Binding Path=PetOwnerLName}" 
+                               Margin="5"
+                               FontSize="12"/>
+                    <TextBlock Text="{Binding Path=DOB}" 
+                               Margin="5"
+                               FontSize="12"/>
+                    <TextBlock Text="{Binding Path=GenderType}" 
+                               Margin="5"
+                               FontSize="12"/>
+                </StackPanel>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="AppointmentInformation">
+            <TextBlock>
+                <TextBlock.Text>
+                    <MultiBinding StringFormat=" {0}:  {1} {2} {3} ">
+                        <Binding Path = "Appointment_PathWay"/>
+                        <Binding Path = "Date"/>
+                        <Binding Path = "Time"/>
+                        <Binding Path = "Status"/>
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+        </DataTemplate>
+        
+    </Window.Resources>
 
     <Grid Margin="10">
         <Grid.RowDefinitions>
@@ -36,6 +70,8 @@
                 <Button Margin="0 20" Height="29" Width="76" Background="#FFF78F8F"  Click="Button_Click">Exit</Button>
             </StackPanel>
         </Grid>
+
+        <!--View Patient--> 
         <Grid Margin="10" Grid.Column="1" Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -44,11 +80,26 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="9*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
             <Label Content="Pet Type" Grid.Row="0" Grid.Column="0"/>
             <ComboBox Name="PetType" Grid.Column="0" Grid.Row="0"/>
-            <ListBox Name="lbxPet" Grid.Row="1" Grid.Column="0"/>
+            <ListBox Name="lbxPet" Grid.Row="1" Grid.RowSpan="3" Grid.Column="0" SelectionChanged="blxPetChanged" />
+            <ListView x:Name="lblPetDetails" 
+                      HorizontalAlignment="Left"
+                       Grid.Row="1" 
+                       Grid.Column="1" 
+                      ItemTemplate="{StaticResource dataTemplatePet}"/>
+            <Label Content="Appintment Details" Grid.Row="2" Grid.Column="1"/>
+            <ListView x:Name="Tbx_AppointmentDetails" 
+                       Grid.Row="3" 
+                       Grid.Column="1" 
+                      ItemTemplate="{StaticResource AppointmentInformation}"/>
+            
         </Grid>
+        
+        
     </Grid>
 </Window>
 
