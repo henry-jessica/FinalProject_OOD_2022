@@ -17,6 +17,21 @@ namespace FinalProject_OOD_2022
         public List<Pet> Pets { get; set; }
 
         public Address Address { get; set; }
+
+
+        public string RetriveOwnerName()
+        {
+            return OwnerFirstName + " " + OwnerLastName;
+        }
+
+        public override string ToString()
+        {
+            return $"#{OwnerID} - {OwnerFirstName} {OwnerLastName}"; 
+        }
+
+
     }
+
+    
 
 }

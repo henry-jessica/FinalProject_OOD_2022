@@ -23,17 +23,17 @@ namespace FinalProject_OOD_2022
 
         public string Appointment_Color
         {
-           
+            
             get
             {
-                if (Appointment_PathWay.ToString() == "Emergency")
-                    return "Red";
-                else
-                    return "Blue"; 
+                return "Red";
+                // if (Appointment_PathWay.ToString() == "Emergency")
+
+                //else
+                //    return "Blue"; 
             }
         }
 
-        
     }
 
 }

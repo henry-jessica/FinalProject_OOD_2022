@@ -22,6 +22,8 @@ namespace FinalProject_OOD_2022
     {
         List<Pet> allPets = new List<Pet>();
         List<Appointment> allAppointments = new List<Appointment>();
+        List<Pet> petsSelected  = new List<Pet>();
+        List<Bill> allBill = new List<Bill>();
         PetData db = new PetData();
 
 
@@ -36,17 +38,19 @@ namespace FinalProject_OOD_2022
             var query = from p in db.Pet
                         select p;
 
-
             allPets = query.ToList();
+
             lbxPet.ItemsSource = allPets;
 
-        
+
+
             //Populate combobox
             cbxPetType.ItemsSource = new string[] { "All", "Cat", "Dog" };
             cbxPetType.SelectedIndex = 0;
 
 
             ViewPatient.Visibility = Visibility.Collapsed;
+            ViewFinance.Visibility = Visibility.Collapsed;
         }
         private void cbxPetType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -98,15 +102,34 @@ namespace FinalProject_OOD_2022
                 Tbx_AppointmentDetails.ItemsSource = query1.ToList();
             }
         }
+        private void ViewAllBills(object sender, RoutedEventArgs e)
+        {
+            //Select all pets with appointments/bills recordings  
+
+            var query = from p in db.Pet
+                        join ap in db.Appointment on p.PetID equals ap.PetID
+                        orderby p.PetOwner.OwnerFirstName ascending
+                        select p.PetOwner;
+
+            //allBill = query.ToList();
+            lbxOwner.ItemsSource = query.ToList().Distinct();
+            
+
+            //Clean Screen 
+            ViewFinance.Visibility = Visibility.Visible;
+            ViewPatient.Visibility = Visibility.Collapsed;
+            folder.Visibility = Visibility.Collapsed;
+
+        }
 
         //ViewBase Patient Screen
         private void Btn_Display_Patient(object sender, RoutedEventArgs e)
         {
             folder.Visibility = Visibility.Collapsed;
+            ViewFinance.Visibility = Visibility.Collapsed;
             ViewPatient.Visibility = Visibility.Visible;
-
         }
-     
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             //exit button
@@ -123,54 +146,11 @@ namespace FinalProject_OOD_2022
 
                         };
         }
-
-        private void Appointment_Btn(object sender, RoutedEventArgs e)
-        {
-        }
-
-        private void blxChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-
-        }
-
-
-        private void ViewAllBills(object sender, RoutedEventArgs e)
-        {
-            //Populate Patient List 
-            var query1 = from b in db.Appointment
-                         join b2 in db.Bill on b.Bill.billingId equals b2.billingId
-                         join b3 in db.Pet on b.PetID equals b3.PetID
-                         join b4 in db.PetOwner on b3.OwnerID equals b4.OwnerID
-                         select b4;
-
-            var query = from b in db.Bill
-
-                         .Where(b => b.StatusPayment.ToString() == "Pendent")
-
-                        select new
-                        {
-                            Name = b.StatusPayment
-
-                        };
-        }
-
-        private void lbxPatient_SectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void lbxBills_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
             ViewPatient.Visibility = Visibility.Collapsed;
             folder.Visibility = Visibility.Visible;
 
-       
             ResetViewPatientScreen();
         }
 
@@ -179,6 +159,17 @@ namespace FinalProject_OOD_2022
             tblkPetDescription.Text = "";
             ImgPetImage.Source = null;
             Tbx_AppointmentDetails.ItemsSource = null;
+        }
+
+        private void blxOwnerChanged(object sender, SelectionChangedEventArgs e)
+        {
+            PetOwner OwnerSelected = (PetOwner)lbxOwner.SelectedItem;
+
+            if (OwnerSelected != null)
+            {
+                tblkOwnerDescription.Text = OwnerSelected.OwnerFirstName; 
+
+            }
         }
     }
 }

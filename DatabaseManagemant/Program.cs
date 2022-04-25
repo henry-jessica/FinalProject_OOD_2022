@@ -68,7 +68,6 @@ namespace DatabaseManagemant
 
                 Appointments = CreateAllAppointment(1),
             };
-
             Vet v2 = new Vet
             {
                 VetID = 2,
@@ -86,7 +85,6 @@ namespace DatabaseManagemant
                 },
                 Appointments = CreateAllAppointment(2),
             };
-
             Vet v3 = new Vet
             {
                 VetID = 3,
@@ -104,7 +102,6 @@ namespace DatabaseManagemant
                 },
                 Appointments = CreateAllAppointment(3)
             };
-
             Vet v4 = new Vet
             {
                 VetID = 4,
@@ -206,7 +203,7 @@ namespace DatabaseManagemant
                     };
 
             //Create Variables to get element from API 
-            DogJson dogImage = null;
+            DogClass dogImage = null;
             string image = null;
             int numOfPetsPerList = rnd.Next(1, 4);
 
@@ -257,13 +254,13 @@ namespace DatabaseManagemant
                     if (p_type == PetType.Cat)
                     {
 
-                        CatJson[] catImage2 = JsonConvert.DeserializeObject<CatJson[]>(body);
+                        CatClass[] catImage2 = JsonConvert.DeserializeObject<CatClass[]>(body);
                         image = catImage2[0].url;
 
                     }
                     else
                     {
-                        dogImage = JsonConvert.DeserializeObject<DogJson>(body);
+                        dogImage = JsonConvert.DeserializeObject<DogClass>(body);
                         image = dogImage.message;
 
                     }
@@ -337,7 +334,6 @@ namespace DatabaseManagemant
 
             string randomDescription = Description[rnd.Next(10)];
 
-
             //Generate Random Payment Status to insert on this bill 
             var statusPayment = Enum.GetValues(typeof(PaymentStatus));
             PaymentStatus status = (PaymentStatus)statusPayment.GetValue(rnd.Next(statusPayment.Length));
@@ -370,11 +366,11 @@ namespace DatabaseManagemant
             int minutes = rnd.Next(maxMinutes);
             t = start.Add(TimeSpan.FromMinutes(minutes));
 
-            //get random Status
+            //create random Appintment Status
             var AppintmentStatus = Enum.GetValues(typeof(GenderType));
             status = (AppointmentStatus)AppintmentStatus.GetValue(rnd.Next(AppintmentStatus.Length));
 
-            //Appointment Type 
+            //create random Appointment Type 
             var Appointment_PathWay = Enum.GetValues(typeof(GenderType));
             appointment_pathWay = (AppointmentType)Appointment_PathWay.GetValue(rnd.Next(Appointment_PathWay.Length));
 
@@ -393,12 +389,12 @@ namespace DatabaseManagemant
 }
 
 
-public class DogJson
+public class DogClass
 {
     public string message { get; set; }
     public string status { get; set; }
 }
-public class CatJson
+public class CatClass
 {
     public object[] breeds { get; set; }
     public string id { get; set; }
