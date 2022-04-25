@@ -17,7 +17,10 @@
         </Grid.RenderTransform>
         <ProgressBar HorizontalAlignment="Center" Height="16" Margin="0,301,0,0" VerticalAlignment="Top" Width="317" Background="#FF41089A" BorderBrush="{x:Null}" Foreground="#FF694BAB"/>
         <Label Content="Veterinary Clinic System" HorizontalAlignment="Center" Margin="0,44,0,0" VerticalAlignment="Top" FontSize="36" RenderTransformOrigin="-1.523,0.443" Background="{x:Null}" FontFamily="Century" FontStyle="Normal" Foreground="#DD071653"/>
+
+        
         <Label Content="Loading..." HorizontalAlignment="Center" Margin="0,205,0,0" VerticalAlignment="Top" FontSize="14"/>
+        
         <Image Visibility="Hidden" x:Name="img" Source="\images\5452.jpg" HorizontalAlignment="Left" Height="100" Margin="575,205,0,0" VerticalAlignment="Top" Width="100"/>
 
         <Image Visibility="Visible" x:Name="img1" Source="\images\paw-print-cat-dog-puppy-pet-trace_177006-37.jpg" HorizontalAlignment="Center" Height="67" Margin="0,226,0,0" VerticalAlignment="Top" Width="223" RenderTransformOrigin="0.5,0.5">

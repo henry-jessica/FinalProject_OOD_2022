@@ -21,7 +21,19 @@ namespace FinalProject_OOD_2022
         public AppointmentType Appointment_PathWay { get; set; }
         public Bill Bill { get; set; }
 
+        public string Appointment_Color
+        {
+           
+            get
+            {
+                if (Appointment_PathWay.ToString() == "Emergency")
+                    return "Red";
+                else
+                    return "Blue"; 
+            }
+        }
 
+        
     }
 
 }

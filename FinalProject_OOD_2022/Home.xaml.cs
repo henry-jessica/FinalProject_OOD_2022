@@ -40,16 +40,41 @@ namespace FinalProject_OOD_2022
             allPets = query.ToList();
             lbxPet.ItemsSource = allPets;
 
+        
             //Populate combobox
             cbxPetType.ItemsSource = new string[] { "All", "Cat", "Dog" };
+            cbxPetType.SelectedIndex = 0;
 
+
+            ViewPatient.Visibility = Visibility.Collapsed;
         }
-
-        //ViewBase Patient Screen
-        private void Btn_Display_Patient(object sender, RoutedEventArgs e)
+        private void cbxPetType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-          
-           
+            //Reset
+            ResetViewPatientScreen();
+
+
+            //All pets are displayed 
+            ComboBox cbx = sender as ComboBox;
+            string petTypeSelected = cbx.SelectedItem as string;
+
+
+            if (petTypeSelected != null)
+            {
+
+                switch (petTypeSelected)
+                {
+                    case "Dog":
+                        lbxPet.ItemsSource = allPets.Where(b => b.Type().Contains("Dog"));
+                        break;
+                    case "Cat":
+                        lbxPet.ItemsSource = allPets.Where(b => b.Type().Contains("Cat"));
+                        break;
+                    default:
+                        lbxPet.ItemsSource = allPets;
+                        break;
+                }
+            }
         }
         private void blxPetChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -58,7 +83,7 @@ namespace FinalProject_OOD_2022
             if (petSelected != null)
             {
                 tblkPetDescription.Text = petSelected.PetDetailsRetrived();
-                ImgPetImage.Source = new BitmapImage(new Uri(petSelected.PetImage)); 
+                ImgPetImage.Source = new BitmapImage(new Uri(petSelected.PetImage));
 
                 var query1 = from ap in db.Appointment
                              where ap.PetID == petSelected.PetID
@@ -67,18 +92,21 @@ namespace FinalProject_OOD_2022
                                  VetID = ap.VetID,
                                  Date = ap.Date,
                                  Time = ap.Time,
-                                 Status = ap.Status,
                                  Appointment_PathWay = ap.Appointment_PathWay,
-
                              };
 
                 Tbx_AppointmentDetails.ItemsSource = query1.ToList();
             }
-
         }
 
+        //ViewBase Patient Screen
+        private void Btn_Display_Patient(object sender, RoutedEventArgs e)
+        {
+            folder.Visibility = Visibility.Collapsed;
+            ViewPatient.Visibility = Visibility.Visible;
 
-
+        }
+     
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             //exit button
@@ -94,7 +122,6 @@ namespace FinalProject_OOD_2022
                             Name = t.PetName,
 
                         };
-            // DgAppointments.ItemsSource = query.ToList();
         }
 
         private void Appointment_Btn(object sender, RoutedEventArgs e)
@@ -117,9 +144,6 @@ namespace FinalProject_OOD_2022
                          join b4 in db.PetOwner on b3.OwnerID equals b4.OwnerID
                          select b4;
 
-            //lbxPatient.ItemsSource = query1.ToList();
-
-
             var query = from b in db.Bill
 
                          .Where(b => b.StatusPayment.ToString() == "Pendent")
@@ -141,31 +165,20 @@ namespace FinalProject_OOD_2022
 
         }
 
-
-        private void cbxPetType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            //Reset
-            //All pets are displayed 
-           ComboBox cbx = sender as ComboBox;
-           string petTypeSelected = cbx.SelectedItem as string;
+            ViewPatient.Visibility = Visibility.Collapsed;
+            folder.Visibility = Visibility.Visible;
 
+       
+            ResetViewPatientScreen();
+        }
 
-            if (petTypeSelected != null)
-            {
-
-                switch (petTypeSelected)
-                {
-                    case "Pet":
-                        lbxPet.ItemsSource = allPets.Where(b => b.Type().Contains("Dog")); 
-                        break;
-                    case "Cat":
-                        lbxPet.ItemsSource = allPets.Where(b => b.Type().Contains("Cat"));
-                        break;
-                        default:
-                        lbxPet.ItemsSource = allPets;
-                        break;
-                }
-            }
+        private void ResetViewPatientScreen()
+        {
+            tblkPetDescription.Text = "";
+            ImgPetImage.Source = null;
+            Tbx_AppointmentDetails.ItemsSource = null;
         }
     }
 }

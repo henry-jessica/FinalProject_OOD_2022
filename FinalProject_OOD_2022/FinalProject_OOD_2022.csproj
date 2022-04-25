@@ -169,6 +169,12 @@
   <ItemGroup>
     <Resource Include="images\cover.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\giphy.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\homelogo.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.3.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.3.0\build\MaterialDesignThemes.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
