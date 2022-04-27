@@ -145,20 +145,7 @@
                 <RowDefinition Height="0*"/>
                 <RowDefinition Height="5*"/>
                 <RowDefinition Height="1*"/>
-                <!--<RowDefinition Height="1*"/>-->
-                <!--<RowDefinition Height="3*"/>-->
             </Grid.RowDefinitions>
-            <!--<Label Content="Search Owner Name: " 
-                   Grid.Row="0" 
-                   Grid.Column="0"
-                   Width="100"
-                   HorizontalAlignment="Left"/>-->
-            <!--<ListBox Name="lbxOwner" Grid.Row="2" Grid.RowSpan="3" Grid.Column="0" SelectionChanged="blxOwnerChanged" />-->
-            <!--<ComboBox Name="cbxOwnerOrPet"  
-                      materialDesign:HintAssist.Hint="Owner" 
-                      HorizontalAlignment="Left"
-                      Width="300"
-                      Height="35"/>-->
             <ComboBox Name="cbxFinanceSituation"  
                       Grid.Column="1"
                       Grid.Row="0"
@@ -180,42 +167,8 @@
                     HorizontalAlignment="Center"
                     Grid.ColumnSpan="2"
                     Click="btnMoreDetailsBill"/>
-            <!--<Grid Grid.Column="1" Grid.Row="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <TextBlock 
-                       x:Name="tblkOwnerDescription" 
-                       Margin="5"
-                       Grid.Row="2"
-                       Grid.Column="1" 
-                       HorizontalAlignment="Left" 
-                       VerticalAlignment="Top" />-->
-            <!--Create Data template-->
-            <!-- 
-                <ListView x:Name="lblPetDetails" 
-                      HorizontalAlignment="Left"
-                       Grid.Row="1" 
-                       Grid.Column="1" 
-                      ItemTemplate="{StaticResource dataTemplatePet}"/>
-            </Grid>-->
         </Grid>
 
-        <!--New Patient -->
-        <!--<Grid Margin="10" Grid.Column="1" Grid.Row="1" Name="CreatePatient2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="4*"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="4*"/>
-            </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" Content="Name" FontSize="20"/>
-            <TextBox Grid.Column="1" BorderBrush="Azure" Name="tbxName"/>
-            <Label Grid.Column="2" Content="Surname" FontSize="20"/>
-            <TextBox Grid.Column="3"  BorderBrush="Green" Name="TbxSurname"/>
-            <Button Content="Save" VerticalAlignment="Center" Click="btn_SaveOwner"/>
-        </Grid>-->
 
         <Grid Margin="10" 
               Grid.Column="1" Grid.Row="1" VerticalAlignment="Top" Name="CreatePatient">
