@@ -16,9 +16,14 @@ namespace FinalProject_OOD_2022
         public DateTime DatePayment { get; set; }
         public PaymentStatus StatusPayment { get; set; }
 
-        public override string ToString()
+        //public override string ToString()
+        //{
+        //    return $"€: {price}  Due:{DatePayment} Status:{StatusPayment.ToString()}"; 
+        //}
+
+        public string GetPaymentStatus()
         {
-            return $"€: {price}  Due:{DatePayment} Status:{StatusPayment.ToString()}"; 
+            return StatusPayment.ToString();
         }
     }
     

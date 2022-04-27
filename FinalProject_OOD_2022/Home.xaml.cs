@@ -21,9 +21,10 @@ namespace FinalProject_OOD_2022
     public partial class Home : Window
     {
         List<Pet> allPets = new List<Pet>();
-    //    List<PetOwner> ClientsSpecialOffer = new List<PetOwner>();
-        List<Pet> petsSelected  = new List<Pet>();
-        List<Bill> allBill = new List<Bill>();
+        List<PetOwner> ClientsSpecialOffer = new List<PetOwner>();
+        List<Pet> petsSelected = new List<Pet>();
+        List<Appointment> allAppointments = new List<Appointment>();
+        int ownerId = 0;
         PetData db = new PetData();
 
 
@@ -42,15 +43,16 @@ namespace FinalProject_OOD_2022
 
             lbxPet.ItemsSource = allPets;
 
-
-
             //Populate combobox
             cbxPetType.ItemsSource = new string[] { "All", "Cat", "Dog" };
+            cbxFinanceSituation.ItemsSource = new string[] { "All", "Paid", "Pendent" };
             cbxPetType.SelectedIndex = 0;
 
 
             ViewPatient.Visibility = Visibility.Collapsed;
             ViewFinance.Visibility = Visibility.Collapsed;
+            CreatePatient.Visibility = Visibility.Collapsed; 
+
         }
         private void cbxPetType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -98,44 +100,40 @@ namespace FinalProject_OOD_2022
                                  Time = ap.Time,
                                  Appointment_PathWay = ap.Appointment_PathWay,
                              };
-
                 Tbx_AppointmentDetails.ItemsSource = query1.ToList();
             }
         }
         private void ViewAllBills(object sender, RoutedEventArgs e)
         {
 
-            //Select all pets with appointments/bills recordings  
-            cbxFinanceSituation.ItemsSource = new string[] { "Paid", "Pendent" };
-            cbxOwnerOrPet.ItemsSource = new string[] { "Owner", "Pet" };
-
             var query = from p in db.Pet
                         join ap in db.Appointment on p.PetID equals ap.PetID
                         orderby p.PetOwner.OwnerFirstName ascending
-                        select p.PetOwner;
+                        select new
+                        {
+                            Name = p.PetOwner,
+                            Surname = p.PetOwner.OwnerLastName
+                        };
 
-            //allBill = query.ToList();
             lbxOwner.ItemsSource = query.ToList().Distinct();
-            
 
             //Clean Screen 
             ViewFinance.Visibility = Visibility.Visible;
             ViewPatient.Visibility = Visibility.Collapsed;
-            //folder.Visibility = Visibility.Collapsed;
+            folder.Visibility = Visibility.Collapsed;
 
         }
 
         //ViewBase Patient Screen
         private void Btn_Display_Patient(object sender, RoutedEventArgs e)
         {
-          //  folder.Visibility = Visibility.Collapsed;
+            folder.Visibility = Visibility.Collapsed;
             ViewFinance.Visibility = Visibility.Collapsed;
             ViewPatient.Visibility = Visibility.Visible;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //exit button
             this.Close();
         }
 
@@ -152,7 +150,7 @@ namespace FinalProject_OOD_2022
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
             ViewPatient.Visibility = Visibility.Collapsed;
-           // folder.Visibility = Visibility.Visible;
+            folder.Visibility = Visibility.Visible;
 
             ResetViewPatientScreen();
         }
@@ -166,19 +164,19 @@ namespace FinalProject_OOD_2022
 
         private void blxOwnerChanged(object sender, SelectionChangedEventArgs e)
         {
-            PetOwner OwnerSelected = (PetOwner)lbxOwner.SelectedItem;
-
-            if (OwnerSelected != null)
-            {
-               // tblkOwnerDescription.Text = OwnerSelected.FullDescription(); 
-
-            }
+            //PetOwner OwnerSelected = (PetOwner)lbxOwner.SelectedItem;
+            //if (OwnerSelected != null)
+            //{
+            //    // tblkOwnerDescription.Text = OwnerSelected.FullDescription();
+            //}
         }
 
         private void CreateNewPatient(object sender, RoutedEventArgs e)
         {
+
             ViewPatient.Visibility = Visibility.Collapsed;
-          //  folder.Visibility = Visibility.Collapsed;
+            folder.Visibility = Visibility.Collapsed;
+            CreatePatient.Visibility = Visibility.Visible;
 
         }
         //Create a new Customer 
@@ -187,17 +185,59 @@ namespace FinalProject_OOD_2022
         //Give special Offer to Appointment 
         private void btn_SaveOwner(object sender, RoutedEventArgs e)
         {
-    //        string name = tbxName.Text;
+            //        string name = tbxName.Text;
+            //        PetOwner customer = new PetOwner
+            //        {
+            //            OwnerFirstName = tbxName.Text,
+            //    //        OwnerLastName = tbxSurname.Text,
+            //    //        OwnerDBO = tbxDOB.Text, 
+            //    //        public List<Pet> Pets { get; set; }
+            //    //        public Address Address { get; set; }
+            //};
+        }
 
-    //        PetOwner customer = new PetOwner
-    //        {
-    //            OwnerFirstName = tbxName.Text,
-    //    //        OwnerLastName = tbxSurname.Text,
-    //    //        OwnerDBO = tbxDOB.Text, 
-    //    //        public List<Pet> Pets { get; set; }
-    //    //        public Address Address { get; set; }
+        private void PaymentStatus_Changed(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox cbx = sender as ComboBox;
+            string BillSituationSelected = cbx.SelectedItem as string;
 
-    //};
+            var query = from p in db.Pet
+                        join ap in db.Appointment on p.PetID equals ap.PetID
+                        orderby p.PetOwner.OwnerFirstName ascending
+                        select new
+                        {
+                            ap.Bill.StatusPayment,
+                            Name = p.PetOwner
+                        };
+
+            if (BillSituationSelected != null)
+            {
+
+                switch (BillSituationSelected)
+                {
+                    case "Paid":
+                        lbxOwner.ItemsSource = query.ToList().Where(b => b.StatusPayment.ToString().Contains("Paid"));
+                        break;
+                    case "Pendent":
+                        lbxOwner.ItemsSource = query.ToList().Where(b => b.StatusPayment.ToString().Contains("Pendent"));
+                        break;
+                    default:
+                        lbxPet.ItemsSource = query.ToList();
+                        break;
+                }
+            }
+        }
+
+        private void btnMoreDetailsBill(object sender, RoutedEventArgs e)
+        {
+
+            //All pets are displayed 
+            var selectedItem = lbxOwner.SelectedItem;  //as PetOwner;
+
+            if (selectedItem != null)
+            {
+
+            }
         }
     }
 }
