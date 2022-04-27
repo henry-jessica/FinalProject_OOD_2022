@@ -28,7 +28,10 @@ namespace FinalProject_OOD_2022
         {
             return $"#{OwnerID} - {OwnerFirstName} {OwnerLastName}"; 
         }
-
+        public string FullDescription()
+        {
+            return $"Customer ID: {OwnerID}\nFull Name: {OwnerFirstName} {OwnerLastName}\n DOB: {OwnerDBO}"; 
+        }
 
     }
 

@@ -15,6 +15,13 @@ namespace FinalProject_OOD_2022
         public string Town { get; set; }
         public string County { get; set; }
         public string Country { get; set; }
+
+        public override string ToString()
+        {
+            return $"ZipCode: {ZipCode}\n {Street},\n{Town}\n{Country}"; 
+        }
     }
+
+    
 }
 

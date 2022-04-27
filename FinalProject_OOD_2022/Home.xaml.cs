@@ -21,7 +21,7 @@ namespace FinalProject_OOD_2022
     public partial class Home : Window
     {
         List<Pet> allPets = new List<Pet>();
-        List<Appointment> allAppointments = new List<Appointment>();
+    //    List<PetOwner> ClientsSpecialOffer = new List<PetOwner>();
         List<Pet> petsSelected  = new List<Pet>();
         List<Bill> allBill = new List<Bill>();
         PetData db = new PetData();
@@ -104,7 +104,10 @@ namespace FinalProject_OOD_2022
         }
         private void ViewAllBills(object sender, RoutedEventArgs e)
         {
+
             //Select all pets with appointments/bills recordings  
+            cbxFinanceSituation.ItemsSource = new string[] { "Paid", "Pendent" };
+            cbxOwnerOrPet.ItemsSource = new string[] { "Owner", "Pet" };
 
             var query = from p in db.Pet
                         join ap in db.Appointment on p.PetID equals ap.PetID
@@ -118,14 +121,14 @@ namespace FinalProject_OOD_2022
             //Clean Screen 
             ViewFinance.Visibility = Visibility.Visible;
             ViewPatient.Visibility = Visibility.Collapsed;
-            folder.Visibility = Visibility.Collapsed;
+            //folder.Visibility = Visibility.Collapsed;
 
         }
 
         //ViewBase Patient Screen
         private void Btn_Display_Patient(object sender, RoutedEventArgs e)
         {
-            folder.Visibility = Visibility.Collapsed;
+          //  folder.Visibility = Visibility.Collapsed;
             ViewFinance.Visibility = Visibility.Collapsed;
             ViewPatient.Visibility = Visibility.Visible;
         }
@@ -149,7 +152,7 @@ namespace FinalProject_OOD_2022
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
             ViewPatient.Visibility = Visibility.Collapsed;
-            folder.Visibility = Visibility.Visible;
+           // folder.Visibility = Visibility.Visible;
 
             ResetViewPatientScreen();
         }
@@ -167,9 +170,34 @@ namespace FinalProject_OOD_2022
 
             if (OwnerSelected != null)
             {
-                tblkOwnerDescription.Text = OwnerSelected.OwnerFirstName; 
+               // tblkOwnerDescription.Text = OwnerSelected.FullDescription(); 
 
             }
+        }
+
+        private void CreateNewPatient(object sender, RoutedEventArgs e)
+        {
+            ViewPatient.Visibility = Visibility.Collapsed;
+          //  folder.Visibility = Visibility.Collapsed;
+
+        }
+        //Create a new Customer 
+        //Create a new Pet
+        //Create a new appointment 
+        //Give special Offer to Appointment 
+        private void btn_SaveOwner(object sender, RoutedEventArgs e)
+        {
+    //        string name = tbxName.Text;
+
+    //        PetOwner customer = new PetOwner
+    //        {
+    //            OwnerFirstName = tbxName.Text,
+    //    //        OwnerLastName = tbxSurname.Text,
+    //    //        OwnerDBO = tbxDOB.Text, 
+    //    //        public List<Pet> Pets { get; set; }
+    //    //        public Address Address { get; set; }
+
+    //};
         }
     }
 }

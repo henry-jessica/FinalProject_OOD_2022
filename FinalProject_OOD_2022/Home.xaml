@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FinalProject_OOD_2022"
         mc:Ignorable="d"
-        Title="Home" Height="506" Width="1016"
+        FontSize="16"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="Home" Height="550" Width="1200"
         WindowStartupLocation="CenterOwner"
          Background="{DynamicResource MaterialDesignPaper}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -17,14 +19,11 @@
                        Width="175"></Image>
                 <StackPanel Margin="5">
                     <TextBlock Text="{Binding Path=Name}" 
-                               Margin="5"
-                               FontSize="12"/>
+                               Margin="5"/>
                     <TextBlock Text="{Binding Path=DOB}" 
-                               Margin="5"
-                               FontSize="12"/>
+                               Margin="5"/>
                     <TextBlock Text="{Binding Path=GenderType}" 
-                               Margin="5"
-                               FontSize="12"/>
+                               Margin="5"/>
                 </StackPanel>
             </StackPanel>
         </DataTemplate>
@@ -41,11 +40,11 @@
             </TextBlock>
         </DataTemplate>
     </Window.Resources>
-    <Grid Margin="10" ShowGridLines="True">
+    <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition/>
-            
+
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
@@ -54,11 +53,11 @@
 
         <!--Header Style-->
 
-            <Image Source="/images/homelogo.png" 
+        <Image Source="/images/homelogo.png" 
                    Grid.Column="0" 
                    Grid.Row="0"
                    MouseDown="Image_MouseDown"/>
-   
+
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200"/>
@@ -68,18 +67,18 @@
                 <Button Margin="0 10" Height="40" Click="Btn_Display_Patient">View Patient</Button>
                 <Button Margin="0 10" Height="40" Click="ViewAllBills">Finance</Button>
                 <Button Margin="0 10" Height="40" >New Appointment</Button>
-                <Button Margin="0 10" Height="40">New Patient</Button>
+                <Button Margin="0 10" Height="40" Click="CreateNewPatient">New Patient</Button>
                 <Button Margin="0 20" Height="29" Width="76" Background="#FFF78F8F"  Click="Button_Click">Exit</Button>
             </StackPanel>
 
         </Grid>
 
-        <!-- Home Screen -->
-        <Grid Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="3" Grid.Row="1">
+        <!--Home Screen-->
+        <!--<Grid Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="3" Grid.Row="1">
             <Image Name="folder" Source="images/cover.png"></Image>
-        </Grid>
-        
-        <!-- View Patient -->
+        </Grid>-->
+
+        <!--View Patient-->
         <Grid Margin="10" Grid.Column="1" Grid.Row="1" Name="ViewPatient">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -102,6 +101,8 @@
                       SelectionChanged="cbxPetType_SelectionChanged"
                       HorizontalAlignment="Left"
                       Margin="80 0 0 0" Width="250"/>
+
+
             <ListBox Name="lbxPet" Grid.Row="2" Grid.RowSpan="3" Grid.Column="0" SelectionChanged="blxPetChanged" />
             <Grid Grid.Column="1" Grid.Row="2">
                 <Grid.ColumnDefinitions>
@@ -124,8 +125,8 @@
                        Grid.Column="1" 
                       ItemTemplate="{StaticResource AppointmentInformation}"/>
         </Grid>
-   
-   
+
+
         <!--Finance Screen-->
         <Grid Margin="10" Grid.Column="1" Grid.Row="1" Name="ViewFinance">
             <Grid.ColumnDefinitions>
@@ -134,19 +135,39 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
+                <RowDefinition Height="0*"/>
+                <RowDefinition Height="5*"/>
                 <RowDefinition Height="1*"/>
-                <RowDefinition Height="8*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="3*"/>
+                <!--<RowDefinition Height="1*"/>-->
+                <!--<RowDefinition Height="3*"/>-->
             </Grid.RowDefinitions>
-            <Label Content="Search Owner Name: " 
+            <!--<Label Content="Search Owner Name: " 
                    Grid.Row="0" 
                    Grid.Column="0"
                    Width="100"
-                   HorizontalAlignment="Left"/>
+                   HorizontalAlignment="Left"/>-->
+            <!--<ListBox Name="lbxOwner" Grid.Row="2" Grid.RowSpan="3" Grid.Column="0" SelectionChanged="blxOwnerChanged" />-->
+            <ComboBox Name="cbxOwnerOrPet"  
+                      materialDesign:HintAssist.Hint="Owner" 
+                      HorizontalAlignment="Left"
+                      Width="300"
+                      Height="35"/>
+            <ComboBox Name="cbxFinanceSituation"  
+                      Grid.Column="1"
+                      Grid.Row="0"
+                      Height="35"
+                      Width="300"
+                      materialDesign:HintAssist.Hint="All"/>
 
-            <ListBox Name="lbxOwner" Grid.Row="2" Grid.RowSpan="3" Grid.Column="0" SelectionChanged="blxOwnerChanged" />
-            <Grid Grid.Column="1" Grid.Row="2">
+            <ListView  Name="lbxOwner"
+                       Grid.Row="2" 
+                       Grid.Column="0"                        
+                       Grid.ColumnSpan="2" 
+                       SelectionChanged="blxOwnerChanged" Margin="0,10,0,10"/>
+            <Button Content="More details" Grid.Row="3" 
+                    HorizontalAlignment="Center"
+                    Grid.ColumnSpan="2"/>
+            <!--<Grid Grid.Column="1" Grid.Row="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
@@ -157,16 +178,32 @@
                        Grid.Row="2"
                        Grid.Column="1" 
                        HorizontalAlignment="Left" 
-                       VerticalAlignment="Top" />
-                
-                <!--Create Data template -->
+                       VerticalAlignment="Top" />-->
+            <!--Create Data template-->
+            <!-- 
                 <ListView x:Name="lblPetDetails" 
                       HorizontalAlignment="Left"
                        Grid.Row="1" 
                        Grid.Column="1" 
                       ItemTemplate="{StaticResource dataTemplatePet}"/>
-            </Grid>
+            </Grid>-->
         </Grid>
+
+        <!--New Patient -->
+        <!--<Grid Margin="10" Grid.Column="1" Grid.Row="1" Name="CreatePatient">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="4*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Content="Name" FontSize="20"/>
+            <TextBox Grid.Column="1" BorderBrush="Azure" Name="tbxName"/>
+            <Label Grid.Column="2" Content="Surname" FontSize="20"/>
+            <TextBox Grid.Column="3"  BorderBrush="Green" Name="TbxSurname"/>
+            <Button Content="Save" VerticalAlignment="Center" Click="btn_SaveOwner"/>
+        </Grid>-->
+
     </Grid>
 </Window>
 
