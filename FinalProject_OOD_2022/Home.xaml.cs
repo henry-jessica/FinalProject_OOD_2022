@@ -24,7 +24,6 @@ namespace FinalProject_OOD_2022
         List<PetOwner> ClientsSpecialOffer = new List<PetOwner>();
         List<Pet> petsSelected = new List<Pet>();
         List<Appointment> allAppointments = new List<Appointment>();
-        int ownerId = 0;
         PetData db = new PetData();
 
 
