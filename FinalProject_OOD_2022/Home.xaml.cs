@@ -50,7 +50,7 @@ namespace FinalProject_OOD_2022
 
             ViewPatient.Visibility = Visibility.Collapsed;
             ViewFinance.Visibility = Visibility.Collapsed;
-            CreatePatient.Visibility = Visibility.Collapsed; 
+            AddPetScreen.Visibility = Visibility.Collapsed; 
 
         }
         private void cbxPetType_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -129,6 +129,7 @@ namespace FinalProject_OOD_2022
             folder.Visibility = Visibility.Collapsed;
             ViewFinance.Visibility = Visibility.Collapsed;
             ViewPatient.Visibility = Visibility.Visible;
+            AddPetScreen.Visibility = Visibility.Collapsed; 
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -175,7 +176,7 @@ namespace FinalProject_OOD_2022
 
             ViewPatient.Visibility = Visibility.Collapsed;
             folder.Visibility = Visibility.Collapsed;
-            CreatePatient.Visibility = Visibility.Visible;
+       //     CreatePatient.Visibility = Visibility.Visible;
 
         }
         //Create a new Customer 
@@ -193,6 +194,10 @@ namespace FinalProject_OOD_2022
             //    //        public List<Pet> Pets { get; set; }
             //    //        public Address Address { get; set; }
             //};
+
+           AddPetScreen.Visibility = Visibility.Visible;
+
+
         }
 
         private void PaymentStatus_Changed(object sender, SelectionChangedEventArgs e)

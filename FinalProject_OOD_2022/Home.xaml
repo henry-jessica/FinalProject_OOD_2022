@@ -51,7 +51,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition/>
-
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
@@ -131,8 +130,6 @@
                        Grid.Column="1" 
                        ItemTemplate="{StaticResource AppointmentInformation}"/>
         </Grid>
-
-
         <!--Finance Screen-->
         <Grid Margin="10" Grid.Column="1" Grid.Row="1" Name="ViewFinance">
             <Grid.ColumnDefinitions>
@@ -167,8 +164,117 @@
                     Grid.ColumnSpan="2"
                     Click="btnMoreDetailsBill"/>
         </Grid>
-        <Grid Margin="10" 
-              Grid.Column="1" Grid.Row="1" VerticalAlignment="Top" Name="CreatePatient">
+
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="100"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <TextBox  Grid.Column="0"  Grid.Row="0" Width="250"
+  materialDesign:HintAssist.Hint="Name"
+  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+  VerticalAlignment="Center"/>
+            <TextBox  Grid.Column="1"  Grid.Row="0"   Width="250"
+  materialDesign:HintAssist.Hint="Surname"
+  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+  VerticalAlignment="Center" />
+            <DatePicker  Grid.Column="2"  Grid.Row="0"
+                             Width="250"
+ 
+  materialDesign:HintAssist.Hint="DOB">
+                <DatePicker.Resources>
+                    <Style
+      x:Key="CustomCalendarDayButton"
+      TargetType="CalendarDayButton"
+      BasedOn="{StaticResource MaterialDesignCalendarDayButton}">
+                        <Setter
+        Property="materialDesign:CalendarAssist.SelectionColor"
+        Value="#B2F39B" />
+                        <Setter
+        Property="materialDesign:CalendarAssist.SelectionForegroundColor"
+        Value="Black" />
+                    </Style>
+                    <Style
+      x:Key="CustomCalendarButton"
+      TargetType="CalendarButton"
+      BasedOn="{StaticResource MaterialDesignCalendarButton}">
+                        <Setter
+        Property="materialDesign:CalendarAssist.SelectionColor"
+        Value="#B2F39B" />
+                        <Setter
+        Property="materialDesign:CalendarAssist.SelectionForegroundColor"
+        Value="Black" />
+                    </Style>
+                    <Style
+      x:Key="CustomCalendar"
+      TargetType="{x:Type Calendar}"
+      BasedOn="{StaticResource MaterialDesignDatePickerCalendarPortrait}">
+                        <Setter
+        Property="Background"
+        Value="#343C3F" />
+                        <Setter
+        Property="Foreground"
+        Value="White" />
+                        <Setter
+        Property="materialDesign:CalendarAssist.HeaderBackground"
+        Value="#A2E9FF" />
+                        <Setter
+        Property="materialDesign:CalendarAssist.HeaderForeground"
+        Value="Black" />
+                        <Setter
+        Property="CalendarDayButtonStyle"
+        Value="{StaticResource CustomCalendarDayButton}" />
+                        <Setter
+        Property="CalendarButtonStyle"
+        Value="{StaticResource CustomCalendarButton}" />
+                    </Style>
+                    <Style
+      TargetType="DatePicker"
+      BasedOn="{StaticResource MaterialDesignFloatingHintDatePicker}">
+                        <Setter
+        Property="CalendarStyle"
+        Value="{StaticResource CustomCalendar}" />
+                    </Style>
+                </DatePicker.Resources>
+            </DatePicker>
+            <TextBox HorizontalAlignment="Center" 
+                     Grid.Column="0"  
+                     Grid.Row="1"  
+                     Width="250" 
+                     Height="45"
+  materialDesign:HintAssist.Hint="Street"
+  Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox HorizontalAlignment="Center" 
+                     Grid.Column="1"  
+                     Grid.Row="1"  
+                     Width="250" 
+                     Height="45"
+  materialDesign:HintAssist.Hint="Town"
+  Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox HorizontalAlignment="Center" 
+                     Grid.Column="2"  
+                     Grid.Row="1"  
+                     Width="250" 
+                     Height="45"
+  materialDesign:HintAssist.Hint="County"
+  Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <Button Content="Save New Customer"
+                    VerticalAlignment="Top"
+                    Grid.Column="0" 
+                    Grid.ColumnSpan="3"
+                    Grid.Row="3"
+                    HorizontalAlignment="Center" 
+                    Click="btn_SaveOwner"/> 
+        </Grid>
+
+        <Grid Grid.Row="2" Grid.Column="1" Name="AddPetScreen">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="30*"/>
                 <ColumnDefinition Width="30*"/>
@@ -176,12 +282,112 @@
                 <ColumnDefinition Width="0*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="30*"/>
-                <RowDefinition Height="30*"/>
-                <RowDefinition Height="30*"/>
-                <RowDefinition/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="20*"/>
+                <RowDefinition Height="20*"/>
+                <RowDefinition Height="10*"/>
             </Grid.RowDefinitions>
-            <TextBox  Grid.Column="0"   Width="250"
+
+
+            <!--Add New Pet -->
+
+            <TextBox  Grid.Column="0"  Grid.Row="1" Width="250"
+  materialDesign:HintAssist.Hint="Pet Name"
+  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+  VerticalAlignment="Center"/>
+            <TextBox  Grid.Column="1"  Grid.Row="1" Width="250"
+  materialDesign:HintAssist.Hint="Pet Image URL"
+  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+  VerticalAlignment="Center"/>
+            <DatePicker  Grid.Column="2"  
+                         Grid.Row="1"
+                         Width="250"
+ 
+  materialDesign:HintAssist.Hint="DOB">
+                <DatePicker.Resources>
+                    <Style
+      x:Key="CustomCalendarDayButton"
+      TargetType="CalendarDayButton"
+      BasedOn="{StaticResource MaterialDesignCalendarDayButton}">
+                        <Setter
+        Property="materialDesign:CalendarAssist.SelectionColor"
+        Value="#B2F39B" />
+                        <Setter
+        Property="materialDesign:CalendarAssist.SelectionForegroundColor"
+        Value="Black" />
+                    </Style>
+                    <Style
+      x:Key="CustomCalendarButton"
+      TargetType="CalendarButton"
+      BasedOn="{StaticResource MaterialDesignCalendarButton}">
+                        <Setter
+        Property="materialDesign:CalendarAssist.SelectionColor"
+        Value="#B2F39B" />
+                        <Setter
+        Property="materialDesign:CalendarAssist.SelectionForegroundColor"
+        Value="Black" />
+                    </Style>
+                    <Style
+      x:Key="CustomCalendar"
+      TargetType="{x:Type Calendar}"
+      BasedOn="{StaticResource MaterialDesignDatePickerCalendarPortrait}">
+                        <Setter
+        Property="Background"
+        Value="#343C3F" />
+                        <Setter
+        Property="Foreground"
+        Value="White" />
+                        <Setter
+        Property="materialDesign:CalendarAssist.HeaderBackground"
+        Value="#A2E9FF" />
+                        <Setter
+        Property="materialDesign:CalendarAssist.HeaderForeground"
+        Value="Black" />
+                        <Setter
+        Property="CalendarDayButtonStyle"
+        Value="{StaticResource CustomCalendarDayButton}" />
+                        <Setter
+        Property="CalendarButtonStyle"
+        Value="{StaticResource CustomCalendarButton}" />
+                    </Style>
+                    <Style
+      TargetType="DatePicker"
+      BasedOn="{StaticResource MaterialDesignFloatingHintDatePicker}">
+                        <Setter
+        Property="CalendarStyle"
+        Value="{StaticResource CustomCalendar}" />
+                    </Style>
+                </DatePicker.Resources>
+            </DatePicker>
+            <ComboBox Name="cbxDogType"  
+                      Grid.Column="0"
+                      Grid.Row="2"
+                      Height="35"
+                      Width="250"
+                      materialDesign:HintAssist.Hint="Select Type"
+                     SelectionChanged="PaymentStatus_Changed"/>
+            <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                <RadioButton Content="Male" />
+                <RadioButton Content="Female"/>
+            </StackPanel>
+        </Grid>
+        <!--<Grid Margin="10" 
+              Grid.Column="1" Grid.Row="1" VerticalAlignment="Top" Name="CreatePatient">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30*"/>
+                    <ColumnDefinition Width="30*"/>
+                    <ColumnDefinition Width="30*"/>
+                    <ColumnDefinition Width="0*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30*"/>
+                    <RowDefinition Height="30*"/>
+                    <RowDefinition Height="30*"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>-->
+
+        <!--Add New Customer-->
+        <!--<TextBox  Grid.Column="0"   Width="250"
   materialDesign:HintAssist.Hint="Name"
   Style="{StaticResource MaterialDesignFloatingHintTextBox}"
   VerticalAlignment="Center" />
@@ -264,96 +470,17 @@
 
             <Button Content="Save New Customer"
                     Margin="10"
+
+                    
                     Grid.Column="0" Grid.ColumnSpan="3"
                     Grid.Row="2"
                     HorizontalAlignment="Center"/>
 
 
-            <TextBox  Grid.Column="1"   Width="250"
-  materialDesign:HintAssist.Hint="Pet Name"
-  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-  />
-
-            <TextBox  Grid.Column="1"   Width="250"
-  materialDesign:HintAssist.Hint="Profile Photo"
-  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-  />
-
-            <DatePicker Grid.Column="2"
-                             Width="250"
- 
-  materialDesign:HintAssist.Hint="DOB">
-                <DatePicker.Resources>
-                    <Style
-      x:Key="CustomCalendarDayButton"
-      TargetType="CalendarDayButton"
-      BasedOn="{StaticResource MaterialDesignCalendarDayButton}">
-                        <Setter
-        Property="materialDesign:CalendarAssist.SelectionColor"
-        Value="#B2F39B" />
-                        <Setter
-        Property="materialDesign:CalendarAssist.SelectionForegroundColor"
-        Value="Black" />
-                    </Style>
-                    <Style
-      x:Key="CustomCalendarButton"
-      TargetType="CalendarButton"
-      BasedOn="{StaticResource MaterialDesignCalendarButton}">
-                        <Setter
-        Property="materialDesign:CalendarAssist.SelectionColor"
-        Value="#B2F39B" />
-                        <Setter
-        Property="materialDesign:CalendarAssist.SelectionForegroundColor"
-        Value="Black" />
-                    </Style>
-                    <Style
-      x:Key="CustomCalendar"
-      TargetType="{x:Type Calendar}"
-      BasedOn="{StaticResource MaterialDesignDatePickerCalendarPortrait}">
-                        <Setter
-        Property="Background"
-        Value="#343C3F" />
-                        <Setter
-        Property="Foreground"
-        Value="White" />
-                        <Setter
-        Property="materialDesign:CalendarAssist.HeaderBackground"
-        Value="#A2E9FF" />
-                        <Setter
-        Property="materialDesign:CalendarAssist.HeaderForeground"
-        Value="Black" />
-                        <Setter
-        Property="CalendarDayButtonStyle"
-        Value="{StaticResource CustomCalendarDayButton}" />
-                        <Setter
-        Property="CalendarButtonStyle"
-        Value="{StaticResource CustomCalendarButton}" />
-                    </Style>
-                    <Style
-      TargetType="DatePicker"
-      BasedOn="{StaticResource MaterialDesignFloatingHintDatePicker}">
-                        <Setter
-        Property="CalendarStyle"
-        Value="{StaticResource CustomCalendar}" />
-                    </Style>
-                </DatePicker.Resources>
-            </DatePicker>
-
-            <ComboBox Name="cbxDogType"  
-                      Grid.Column="1"
-                      Grid.Row="0"
-                      Height="35"
-                      Width="300"
-                      materialDesign:HintAssist.Hint="Select Type"
-                     SelectionChanged="PaymentStatus_Changed"/>
-            <StackPanel Grid.Row="3" HorizontalAlignment="Center">
-                <RadioButton Content="Male" />
-                <RadioButton Content="Female"/>
-            </StackPanel>
-            
-           
-       
         </Grid>
+        <Grid Grid.Row="3" Grid.Column="0">-->
+        <!--Add Pet For Customer-->
+        <!--</Grid>-->
     </Grid>
 </Window>
 
